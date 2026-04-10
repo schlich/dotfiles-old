@@ -23,21 +23,43 @@
       url = "github:christian-blades-cb/rust-docs-mcp/2d69d7acd57a36456f844df45e8aade257352257";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    jj-starship = {
+      url = "gitlab:lanastara_foss/starship-jj";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    dms = {
+      url = "github:AvengeMedia/DankMaterialShell/stable";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
     {
-      self,
       nixpkgs,
       home-manager,
       nixos-wsl,
       determinate,
       fh,
       nixgl,
-      nuenv,
       nix-inspect,
+      jj-starship,
+      dms,
+      niri,
       ...
     }@inputs:
+    let
+      system = "x86_64-linux";
+      pkgs = import nixpkgs {
+        inherit system;
+        overlays = [
+          jj-starship.overlays.default
+        ];
+      };
+    in
     {
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
@@ -47,23 +69,27 @@
           {
             nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
             environment.systemPackages = [
-              fh.packages.x86_64-linux.default
-              nix-inspect.packages.x86_64-linux.default
+              fh.packages.${system}.default
+              nix-inspect.packages.${system}.default
             ];
-            nixpkgs = {
-              system = "x86_64-linux";
-            };
+            nixpkgs.system = system;
             programs.nix-ld.enable = true;
           }
           ./configuration.nix
         ];
       };
+
       homeConfigurations.schlich = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        modules = [ ./home.nix ];
+        inherit pkgs;
+        modules = [
+          ./home.nix
+          niri.homeModules.niri
+          dms.homeModules.dank-material-shell
+          dms.homeModules.niri
+        ];
         extraSpecialArgs = { inherit inputs nixgl; };
       };
-      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-tree;
 
+      formatter.${system} = pkgs.nixfmt-tree;
     };
 }

@@ -14,7 +14,7 @@ def main [] {
 
     if (which npx | is-not-empty) {
         print "Testing MCP servers..."
-        
+
         print -n "  Testing filesystem server... "
         try {
             npx -y @modelcontextprotocol/server-filesystem --help | complete | ignore
@@ -22,7 +22,7 @@ def main [] {
         } catch {
             print "✓ (installed)"
         }
-        
+
         print -n "  Testing git server... "
         try {
             npx -y @modelcontextprotocol/server-git --help | complete | ignore
@@ -30,7 +30,7 @@ def main [] {
         } catch {
             print "✓ (installed)"
         }
-        
+
         print ""
     }
 
@@ -52,7 +52,7 @@ def main [] {
         "3" => { show_cline_instructions $mcp_dir }
         "4" => { test_python_server $mcp_dir }
         "5" => { view_config $mcp_dir }
-        "0" => { 
+        "0" => {
             print "Goodbye!"
             exit 0
         }
@@ -90,7 +90,7 @@ def link_config [mcp_dir: string] {
             exit 0
         }
     }
-    
+
     ln -sf $"($mcp_dir)/mcp.json" ./mcp.json
     print $"✓ Linked ($mcp_dir)/mcp.json to ./mcp.json"
     print ""
@@ -99,7 +99,7 @@ def link_config [mcp_dir: string] {
 
 def setup_claude_desktop [mcp_dir: string] {
     let os = (sys host | get name)
-    
+
     let config_info = if $os == "Darwin" {
         {
             dir: $"($env.HOME)/Library/Application Support/Claude"
@@ -111,9 +111,9 @@ def setup_claude_desktop [mcp_dir: string] {
             file: $"($env.HOME)/.config/Claude/claude_desktop_config.json"
         }
     }
-    
+
     mkdir $config_info.dir
-    
+
     if ($config_info.file | path exists) {
         print "Claude Desktop config already exists"
         let confirm = (input "Backup and overwrite? (y/N): ")
@@ -125,7 +125,7 @@ def setup_claude_desktop [mcp_dir: string] {
             exit 0
         }
     }
-    
+
     cp $"($mcp_dir)/configs/claude-desktop.json" $config_info.file
     print $"✓ Installed config to ($config_info.file)"
     print ""
@@ -152,12 +152,12 @@ def test_python_server [mcp_dir: string] {
         print "Python3 is required"
         exit 1
     }
-    
+
     print ""
     print "Testing custom Python MCP server..."
     print "Enter 'quit' to exit"
     print ""
-    
+
     python3 $"($mcp_dir)/servers/custom-example.py"
 }
 

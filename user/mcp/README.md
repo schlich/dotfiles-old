@@ -78,7 +78,7 @@ Edit `~/.mcp/mcp.json` and change the `enabled` field:
 {
   "mcpServers": {
     "github": {
-      "enabled": true,  // Change this
+      "enabled": true,
       "env": {
         "GITHUB_PERSONAL_ACCESS_TOKEN": "your-token-here"
       }
@@ -168,3 +168,4 @@ npm search @modelcontextprotocol/server
 
 # Install server globally (optional)
 npm install -g @modelcontextprotocol/server-filesystem
+```

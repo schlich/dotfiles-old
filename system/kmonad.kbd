@@ -1,0 +1,13 @@
+(defcfg
+  input  (device-file "/dev/input/by-id/usb-ROYUAN_ROYALAXE_R100-event-kbd")
+  output (uinput-sink "KMonad output")
+
+  fallthrough true
+
+  allow-cmd true
+
+)
+
+(defsrc CapsLock Esc)
+
+(deflayer default Esc CapsLock)

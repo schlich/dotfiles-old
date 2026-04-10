@@ -39,7 +39,7 @@ nu ~/.mcp/mcp-utils.nu status
 
 Displays a quick status overview:
 - 🟢 Enabled servers
-- ⚫ Disabled servers  
+- ⚫ Disabled servers
 - 🔑 Servers requiring API keys
 
 #### Enable/Disable Servers
@@ -245,7 +245,7 @@ nu ~/.mcp/mcp-utils.nu enable my-server
 ```nu
 # Get all disabled servers
 let config = open ~/.mcp/mcp.json
-let disabled = $config.mcpServers | transpose name details | where {|s| 
+let disabled = $config.mcpServers | transpose name details | where {|s|
     not ($s.details | get -i enabled | default true)
 } | get name
 
@@ -282,8 +282,8 @@ open ~/.mcp/mcp.json | get mcpServers | transpose name details | where {|s|
 
 ```nu
 # One-liner to see which servers are enabled
-open ~/.mcp/mcp.json | get mcpServers | transpose name details | 
-  select name | insert enabled {|s| 
+open ~/.mcp/mcp.json | get mcpServers | transpose name details |
+  select name | insert enabled {|s|
     $s.details | get -i enabled | default true
   } | where enabled
 ```
