@@ -61,12 +61,28 @@
       settings = {
         feeds = [
           {
+            name = "adam-nyberg";
+            url = "https://adamnyberg.se/rss.xml";
+          }
+          {
+            name = "automerge";
+            url = "https://automerge.org/index.xml";
+          }
+          {
+            name = "ink-and-switch";
+            url = "https://www.inkandswitch.com/index.xml";
+          }
+          {
             name = "lea-verou-phd";
             url = "https://lea.verou.me/feed.xml";
           }
           {
             name = "hacker-news";
             url = "https://news.ycombinator.com/rss";
+          }
+          {
+            name = "nix-ci";
+            url = "https://blog.nix-ci.com/rss.xml";
           }
         ];
       };

@@ -1,9 +1,9 @@
 { pkgs, ... }:
 
 {
-  imports = [
-    ./hardware-configuration.nix
-  ];
+  # imports = [
+  #   ./hardware-configuration.nix
+  # ];
 
   nix.settings = {
     experimental-features = [
@@ -25,11 +25,11 @@
     };
   };
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  # boot.loader.systemd-boot.enable = true;
+  # boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "nixos";
-  networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.wireless.enable = true; # Enables wireless support via wpa_supplicant.
 
   # networking.networkmanager.enable = true;
   networking.wireless.networks = {
@@ -70,9 +70,9 @@
       # settings.default_session.user = "schlich";
     };
     # displayManager.dms-greeter = {
-      # enable = true;
-      # compositor.name = "niri";
-      # package = inputs.dms.packages.${pkgs.stdenv.hostPlatform.system}.default;
+    # enable = true;
+    # compositor.name = "niri";
+    # package = inputs.dms.packages.${pkgs.stdenv.hostPlatform.system}.default;
     # };
     openssh.enable = true;
     pipewire = {
@@ -145,7 +145,6 @@
     };
   };
   services.dbus.implementation = "broker";
-  system.stateVersion = "24.11";
   xdg = {
     portal = {
       enable = true;
@@ -155,17 +154,17 @@
         pkgs.xdg-desktop-portal-gtk
         pkgs.xdg-desktop-portal-gnome
         pkgs.xdg-desktop-portal-termfilechooser
-       ];
+      ];
     };
     # xdgOpenUsePortal = true;
     autostart.enable = true;
   };
   # virtualisation.docker = {
-    # enable = false;
-    # rootless = {
-    #   enable = true;
-    #   setSocketVariable = true;
-    # };
+  # enable = false;
+  # rootless = {
+  #   enable = true;
+  #   setSocketVariable = true;
+  # };
   # };
   security.polkit.enable = true;
 }
