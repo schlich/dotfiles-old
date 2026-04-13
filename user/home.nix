@@ -1,12 +1,17 @@
 { pkgs, inputs, ... }:
 
 {
+  imports = [
+    inputs.sops-nix.homeManagerModules.sops
+  ];
   home = {
     username = "schlich";
     homeDirectory = /home/schlich;
     stateVersion = "26.05";
     packages = with pkgs; [
-      oo7
+      sops
+      ssh-to-age
+      gcr
       clipboard-jh
       diffedit3
       difftastic
@@ -41,6 +46,7 @@
       VISUAL = "hx";
       RUST_SRC_PATH = "${pkgs.rustPlatform.rustLibSrc}";
       SHELL = "nu";
+      OPENAI_API_KEY = "12345";
     };
   };
 
@@ -420,6 +426,7 @@
   };
 
   services = {
+    gnome-keyring.enable = true;
     home-manager.autoUpgrade.useFlake = true;
     gpg-agent = {
       enable = true;

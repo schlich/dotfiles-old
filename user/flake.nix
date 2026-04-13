@@ -4,7 +4,6 @@
   inputs = {
     nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1";
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
-    fh.url = "https://flakehub.com/f/DeterminateSystems/fh/*";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -35,6 +34,10 @@
       url = "github:AvengeMedia/DankMaterialShell/stable";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -43,12 +46,12 @@
       home-manager,
       nixos-wsl,
       determinate,
-      fh,
       nixgl,
       nix-inspect,
       jj-starship,
       dms,
       niri,
+      agenix,
       ...
     }@inputs:
     let
@@ -61,23 +64,23 @@
       };
     in
     {
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
-        modules = [
-          nixos-wsl.nixosModules.wsl
-          determinate.nixosModules.default
-          {
-            nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
-            environment.systemPackages = [
-              fh.packages.${system}.default
-              nix-inspect.packages.${system}.default
-            ];
-            nixpkgs.system = system;
-            programs.nix-ld.enable = true;
-          }
-          ./configuration.nix
-        ];
-      };
+      # nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+      #   specialArgs = { inherit inputs; };
+      #   modules = [
+      #     nixos-wsl.nixosModules.wsl
+      #     determinate.nixosModules.default
+      #     {
+      #       nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+      #       environment.systemPackages = [
+      #         nix-inspect.packages.${system}.default
+      #       ];
+      #       nixpkgs.system = system;
+      #       programs.nix-ld.enable = true;
+      #     }
+      #     ./configuration.nix
+      #     agenix.nixosModules.default
+      #   ];
+      # };
 
       homeConfigurations.schlich = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;

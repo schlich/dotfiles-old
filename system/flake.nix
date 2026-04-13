@@ -8,6 +8,11 @@
       url = "github:AvengeMedia/DankMaterialShell/stable";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    fh.url = "https://flakehub.com/f/DeterminateSystems/fh/*";
+    agenix = {
+      url = "github:yaxitech/ragenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -16,6 +21,8 @@
       nixpkgs,
       dms,
       nixos-wsl,
+      fh,
+      agenix,
       ...
     }:
     {
@@ -30,10 +37,18 @@
             wsl.docker-desktop.enable = true;
             wsl.startMenuLaunchers = true;
             wsl.useWindowsDriver = true;
+
           }
           dms.nixosModules.dank-material-shell
           dms.nixosModules.greeter
+          agenix.nixosModules.default
           ./configuration.nix
+          {
+            environment.systemPackages = [
+              fh.packages.x86_64-linux.default
+              agenix.packages.x86_64-linux.default
+            ];
+          }
         ];
       };
     };

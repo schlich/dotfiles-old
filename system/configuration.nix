@@ -127,10 +127,6 @@
       enable = true;
       # settings.input.keyboard.xkb.options = "caps:escape";
     };
-    gnupg.agent = {
-      enable = true;
-      enableSSHSupport = true;
-    };
     # dms-shell.enable = true;
     dank-material-shell = {
       enable = true;
@@ -167,4 +163,5 @@
   # };
   # };
   security.polkit.enable = true;
+  age.secrets.openai.file = ./secrets/openai.age;
 }

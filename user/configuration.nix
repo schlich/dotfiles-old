@@ -8,6 +8,7 @@
     enable = true;
     defaultUser = "schlich";
     useWindowsDriver = true;
+    ssh-enable = true;
   };
 
   environment = {
