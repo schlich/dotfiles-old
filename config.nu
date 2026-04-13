@@ -6,10 +6,12 @@ $env.BROWSER = "google-chrome-stable"
 $env.EDITOR = "hx"
 $env.VISUAL = "hx"
 
-let openai_api_key = (do -i { ^pass show ai/openai | str trim } | default "")
-if $openai_api_key != "" {
-    $env.OPENAI_API_KEY = $openai_api_key
-}
+# let openai_api_key = (do -i { ^pass show ai/openai | str trim } | default "")
+# if $openai_api_key != "" {
+#     $env.OPENAI_API_KEY = $openai_api_key
+# }
+
+$env.OPENAI_API_KEY = (open /run/agenix/openai)
 
 let github_token = (do -i { ^gh auth token | str trim } | default "")
 if $github_token != "" {

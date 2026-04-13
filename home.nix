@@ -9,6 +9,7 @@
     homeDirectory = /home/schlich;
     stateVersion = "26.05";
     packages = with pkgs; [
+      dhall
       sops
       ssh-to-age
       gcr
@@ -62,6 +63,10 @@
       '';
 
   programs = {
+    codex = {
+      enable = true;
+      enableMcpIntegration = true;
+    };
     nom = {
       enable = true;
       settings = {
@@ -182,6 +187,7 @@
         marksman
         rust-analyzer
         taplo
+        dhall
       ];
       defaultEditor = true;
       settings = {

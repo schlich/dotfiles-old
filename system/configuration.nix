@@ -29,7 +29,7 @@
   # boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "nixos";
-  networking.wireless.enable = true; # Enables wireless support via wpa_supplicant.
+  networking.wireless.enable = false; # Enables wireless support via wpa_supplicant.
 
   # networking.networkmanager.enable = true;
   networking.wireless.networks = {
@@ -74,7 +74,15 @@
     # compositor.name = "niri";
     # package = inputs.dms.packages.${pkgs.stdenv.hostPlatform.system}.default;
     # };
-    openssh.enable = true;
+    openssh = {
+      enable = true;
+      settings = {
+        PasswordAuthentication = false;
+        KbdInteractiveAuthentication = false;
+        PermitRootLogin = "no";
+        AllowUsers = [ "schlich" ];
+      };
+    };
     pipewire = {
       enable = true;
       alsa.enable = true;
@@ -122,6 +130,7 @@
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   programs = {
+    # ssh.startAgent = true;
     nix-ld.enable = true;
     niri = {
       enable = true;
@@ -163,5 +172,9 @@
   # };
   # };
   security.polkit.enable = true;
-  age.secrets.openai.file = ./secrets/openai.age;
+  age.secrets.openai = {
+    file = ./secrets/openai.age;
+    owner = "schlich";
+    mode = "0400";
+  };
 }
