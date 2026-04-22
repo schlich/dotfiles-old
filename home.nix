@@ -9,6 +9,7 @@
     homeDirectory = /home/schlich;
     stateVersion = "26.05";
     packages = with pkgs; [
+      noctalia-shell
       dhall
       sops
       ssh-to-age
@@ -98,10 +99,10 @@
         ];
       };
     };
-    dank-material-shell = {
-      enable = true;
-      systemd.enable = true;
-    };
+    # dank-material-shell = {
+    #   enable = true;
+    #   systemd.enable = true;
+    # };
     niri.settings.binds = {
       #   "Mod+Tab".action.open-overview = [ ];
       #   "Mod+Shift+Slash".action.show-hotkey-overlay = [ ];

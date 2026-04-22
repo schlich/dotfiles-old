@@ -30,10 +30,14 @@
       url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    dms = {
-      url = "github:AvengeMedia/DankMaterialShell/stable";
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # dms = {
+    #   url = "github:AvengeMedia/DankMaterialShell/stable";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -49,7 +53,7 @@
       nixgl,
       nix-inspect,
       jj-starship,
-      dms,
+      # dms,
       niri,
       agenix,
       ...
@@ -87,8 +91,9 @@
         modules = [
           ./home.nix
           niri.homeModules.niri
-          dms.homeModules.dank-material-shell
-          dms.homeModules.niri
+          ./noctalia.nix
+          # dms.homeModules.dank-material-shell
+          # dms.homeModules.niri
         ];
         extraSpecialArgs = { inherit inputs nixgl; };
       };
