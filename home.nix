@@ -1,15 +1,11 @@
 { pkgs, inputs, ... }:
 
 {
-  imports = [
-    inputs.sops-nix.homeManagerModules.sops
-  ];
   home = {
     username = "schlich";
     homeDirectory = /home/schlich;
     stateVersion = "26.05";
     packages = with pkgs; [
-      noctalia-shell
       dhall
       sops
       ssh-to-age
@@ -39,7 +35,6 @@
       taplo
       uv
       wl-clipboard-rs
-      xwayland-satellite
       zed-editor
       inputs.rust-docs-mcp.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
@@ -48,21 +43,15 @@
       VISUAL = "hx";
       RUST_SRC_PATH = "${pkgs.rustPlatform.rustLibSrc}";
       SHELL = "nu";
-      OPENAI_API_KEY = "12345";
+      MESA_D3D12_DEFAULT_ADAPTER_NAME = "Intel(R) UHD Graphics 620";
+      LIBVA_DRIVER_NAME = "d3d12";
+      # GALLIUM_DRIVER = "d3d12";
+      # LD_LIBRARY_PATH = "/usr/lib/wsl/lib";
     };
   };
 
   nixpkgs.config.allowUnfree = true;
   fonts.fontconfig.enable = true;
-  xdg.configFile."nushell/completions/niri.nu".source =
-    pkgs.runCommandLocal "niri-nushell-completions.nu"
-      {
-        nativeBuildInputs = [ pkgs.niri ];
-      }
-      ''
-        ${pkgs.niri}/bin/niri completions nushell > "$out"
-      '';
-
   programs = {
     codex = {
       enable = true;
@@ -103,23 +92,6 @@
     #   enable = true;
     #   systemd.enable = true;
     # };
-    niri.settings.binds = {
-      #   "Mod+Tab".action.open-overview = [ ];
-      #   "Mod+Shift+Slash".action.show-hotkey-overlay = [ ];
-      #   "Mod+T".action.spawn = [ "kitty" ];
-      "Mod+B".action.spawn = [ "google-chrome-stable" ];
-      #   "Mod+Q".action.close-window = [ ];
-      #   "Mod+Shift+E".action.quit = [ ];
-      #   "Mod+L".action.focus-column-right = [ ];
-      #   "Mod+H".action.focus-column-left = [ ];
-      #   "Mod+F".action.fullscreen-window = [ ];
-      #   "Mod+Ctrl+H".action.move-column-left = [ ];
-      #   "Mod+Ctrl+L".action.move-column-right = [ ];
-      #   "Mod+J".action.focus-workspace-down = [ ];
-      #   "Mod+K".action.focus-workspace-up = [ ];
-      #   "Mod+Ctrl+J".action.move-column-to-workspace-down = [ ];
-      #   "Mod+Ctrl+K".action.move-column-to-workspace-up = [ ];
-    };
     mcp = {
       enable = true;
       servers = {
@@ -138,14 +110,14 @@
           command = "nu";
           args = [ "--mcp" ];
         };
-        chrome-devtools = {
-          command = "bunx";
-          args = [ "chrome-devtools-mcp@latest" ];
-        };
-        playwright = {
-          command = "bunx";
-          args = [ "@playwright/mcp@latest" ];
-        };
+        # chrome-devtools = {
+        #   command = "bunx";
+        #   args = [ "chrome-devtools-mcp@latest" ];
+        # };
+        # playwright = {
+        #   command = "bunx";
+        #   args = [ "@playwright/mcp@latest" ];
+        # };
         rust-docs = {
           command = "rust-docs-mcp";
         };

@@ -8,7 +8,8 @@
     enable = true;
     defaultUser = "schlich";
     useWindowsDriver = true;
-    ssh-enable = true;
+    ssh-agent.enable = true;
+    startMenuLaunchers = true;
   };
 
   environment = {
@@ -16,6 +17,11 @@
     variables = {
       EDITOR = "hx";
       VISUAL = "hx";
+      # WSLg uses Mesa's D3D12 backend, so adapter selection happens by name.
+      # MESA_D3D12_DEFAULT_ADAPTER_NAME = "Intel(R) UHD Graphics 620";
+      # LIBVA_DRIVER_NAME = "d3d12";
+      # GALLIUM_DRIVER = "d3d12";
+      # LD_LIBRARY_PATH = "/usr/lib/wsl/lib";
     };
     systemPackages = [
       pkgs.wget
@@ -25,14 +31,21 @@
 
   system.stateVersion = "26.05";
 
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+  nix.settings = {
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+  };
 
   hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [ mesa ];
     enable32Bit = true;
   };
+  services.dbus.implementation = "broker";
+  programs = {
+    nix-ld.enable = true;
+  };
+
 }

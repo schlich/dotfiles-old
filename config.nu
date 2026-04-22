@@ -1,6 +1,6 @@
 $env.config.show_banner = false
 $env.config.buffer_editor = "hx"
-$env.config.use_kitty_protocol = false
+$env.config.use_kitty_protocol = true;
 
 $env.BROWSER = "google-chrome-stable"
 $env.EDITOR = "hx"
@@ -11,7 +11,7 @@ $env.VISUAL = "hx"
 #     $env.OPENAI_API_KEY = $openai_api_key
 # }
 
-$env.OPENAI_API_KEY = (open /run/agenix/openai)
+# $env.OPENAI_API_KEY = (open /run/agenix/openai)
 
 let github_token = (do -i { ^gh auth token | str trim } | default "")
 if $github_token != "" {
@@ -21,19 +21,18 @@ if $github_token != "" {
 alias lg = lazygit
 alias hm = home-manager
 
-source ~/.config/nushell/completions/niri.nu
-use completions *
+# use completions *
 
-$env.config.completions.external.completer
+# $env.config.completions.external.completer
 
-let niri_token_prefix_match = {|query: string, candidate: string|
-    let query_parts = ($query | split row '-' | where {|part| $part != '' })
-    let candidate_parts = ($candidate | split row '-')
+# let niri_token_prefix_match = {|query: string, candidate: string|
+#     let query_parts = ($query | split row '-' | where {|part| $part != '' })
+#     let candidate_parts = ($candidate | split row '-')
 
-    (($query_parts | length) <= ($candidate_parts | length)) and ($query_parts | enumerate | all {|part|
-        (($candidate_parts | get $part.index | default '') | str starts-with $part.item)
-    })
-}
+#     (($query_parts | length) <= ($candidate_parts | length)) and ($query_parts | enumerate | all {|part|
+#         (($candidate_parts | get $part.index | default '') | str starts-with $part.item)
+#     })
+# }
 
 
 # def --wrapped opencode [...args] {

@@ -3,6 +3,10 @@
 
   inputs = {
     nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1";
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -34,10 +38,11 @@
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # dms = {
-    #   url = "github:AvengeMedia/DankMaterialShell/stable";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    dms = {
+      url = "github:AvengeMedia/DankMaterialShell/stable";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    fh.url = "https://flakehub.com/f/DeterminateSystems/fh/*";
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -45,59 +50,82 @@
   };
 
   outputs =
-    {
-      nixpkgs,
+    inputs@{
+      flake-parts,
       home-manager,
-      nixos-wsl,
-      determinate,
-      nixgl,
-      nix-inspect,
-      jj-starship,
-      # dms,
-      niri,
-      agenix,
+      nixpkgs,
       ...
-    }@inputs:
-    let
-      system = "x86_64-linux";
-      pkgs = import nixpkgs {
-        inherit system;
-        overlays = [
-          jj-starship.overlays.default
-        ];
-      };
-    in
-    {
-      # nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-      #   specialArgs = { inherit inputs; };
-      #   modules = [
-      #     nixos-wsl.nixosModules.wsl
-      #     determinate.nixosModules.default
-      #     {
-      #       nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
-      #       environment.systemPackages = [
-      #         nix-inspect.packages.${system}.default
-      #       ];
-      #       nixpkgs.system = system;
-      #       programs.nix-ld.enable = true;
-      #     }
-      #     ./configuration.nix
-      #     agenix.nixosModules.default
-      #   ];
-      # };
+    }:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [ "x86_64-linux" ];
 
-      homeConfigurations.schlich = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [
-          ./home.nix
-          niri.homeModules.niri
-          ./noctalia.nix
-          # dms.homeModules.dank-material-shell
-          # dms.homeModules.niri
-        ];
-        extraSpecialArgs = { inherit inputs nixgl; };
-      };
+      perSystem =
+        { pkgs, system, ... }:
+        {
+          _module.args.pkgs = import nixpkgs {
+            inherit system;
+            overlays = [ inputs.jj-starship.overlays.default ];
+            config.allowUnfree = true;
+          };
 
-      formatter.${system} = pkgs.nixfmt-tree;
+          formatter = pkgs.nixfmt-tree;
+        };
+
+      flake =
+        let
+          mkNixos =
+            modules:
+            nixpkgs.lib.nixosSystem {
+              system = "x86_64-linux";
+              specialArgs = { inherit inputs; };
+              inherit modules;
+            };
+
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            overlays = [ inputs.jj-starship.overlays.default ];
+            config.allowUnfree = true;
+          };
+        in
+        {
+          nixosConfigurations = {
+            nixos = mkNixos [
+              inputs.nixos-wsl.nixosModules.wsl
+              # inputs.determinate.nixosModules.default
+              inputs.agenix.nixosModules.default
+              ./configuration.nix
+            ];
+
+            desktop = mkNixos [
+              inputs.agenix.nixosModules.default
+              inputs.dms.nixosModules.dank-material-shell
+              inputs.dms.nixosModules.greeter
+              ./system/hardware-configuration.nix
+              ./system/configuration.nix
+              (
+                { pkgs, ... }:
+                {
+                  environment.systemPackages = [
+                    inputs.fh.packages.${pkgs.stdenv.hostPlatform.system}.default
+                    inputs.agenix.packages.${pkgs.stdenv.hostPlatform.system}.default
+                  ];
+                }
+              )
+            ];
+          };
+
+          homeConfigurations.schlich = home-manager.lib.homeManagerConfiguration {
+            inherit pkgs;
+            modules = [
+              ./home.nix
+              # ./noctalia.nix
+              # inputs.niri.homeModules.niri
+            ];
+            extraSpecialArgs = {
+              inherit inputs;
+              # nixgl = inputs.nixgl;
+            };
+          };
+        };
     };
 }
