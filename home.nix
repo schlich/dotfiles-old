@@ -21,7 +21,6 @@
       fzf
       gcc
       ghostty
-      github-copilot-cli
       jjui
       lazyjj
       monaspace
@@ -400,6 +399,7 @@
       enable = true;
       enableNushellIntegration = true;
     };
+    bun.enable = true;
   };
 
   services = {

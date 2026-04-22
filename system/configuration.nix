@@ -27,8 +27,23 @@
     };
   };
 
-  # boot.loader.systemd-boot.enable = true;
-  # boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader = {
+    # Install Limine to the USB drive's fallback EFI path so firmware can boot it
+    # without relying on host-specific NVRAM entries.
+    efi.canTouchEfiVariables = false;
+    limine = {
+      enable = true;
+      efiSupport = true;
+      efiInstallAsRemovable = true;
+      biosSupport = false;
+      extraEntries = ''
+        /Windows
+          comment: Boot the existing Windows Boot Manager EFI entry
+          protocol: efi_boot_entry
+          entry: Windows Boot Manager
+      '';
+    };
+  };
 
   networking.hostName = "nixos";
   networking.wireless.enable = false; # Enables wireless support via wpa_supplicant.

@@ -1,6 +1,7 @@
 { pkgs, inputs, ... }:
 {
   nixpkgs.hostPlatform = "x86_64-linux";
+  time.hardwareClockInLocalTime = true;
   users.defaultUserShell = pkgs.nushell;
   users.users.schlich.shell = pkgs.nushell;
 
