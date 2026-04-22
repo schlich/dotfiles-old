@@ -154,7 +154,7 @@
     opencode = {
       enable = true;
       enableMcpIntegration = true;
-      rules = ''
+      context = ''
         Use Nushell for shell commands and jujutsu (jj) for version control.
         Use the appropriate skills.
       '';
@@ -406,7 +406,7 @@
         git_commit.disabled = true;
         custom.jj = {
           command = "prompt";
-          format = "$output";
+          format = "$output ";
           ignore_timeout = true;
           shell = [
             "${pkgs.starship-jj}/bin/starship-jj"
