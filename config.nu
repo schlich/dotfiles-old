@@ -2,7 +2,7 @@ $env.config.show_banner = false
 $env.config.buffer_editor = "hx"
 $env.config.use_kitty_protocol = true;
 
-$env.BROWSER = "google-chrome-stable"
+# $env.BROWSER = "google-chrome-stable"
 $env.EDITOR = "hx"
 $env.VISUAL = "hx"
 

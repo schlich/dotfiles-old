@@ -6,8 +6,10 @@
     homeDirectory = /home/schlich;
     stateVersion = "26.05";
     packages = with pkgs; [
+      mesa-demos
+      niri
       dhall
-      sops
+      skills
       ssh-to-age
       gcr
       clipboard-jh
@@ -20,7 +22,6 @@
       gcc
       ghostty
       github-copilot-cli
-      google-chrome
       jjui
       lazyjj
       monaspace
@@ -43,15 +44,12 @@
       VISUAL = "hx";
       RUST_SRC_PATH = "${pkgs.rustPlatform.rustLibSrc}";
       SHELL = "nu";
-      MESA_D3D12_DEFAULT_ADAPTER_NAME = "Intel(R) UHD Graphics 620";
-      LIBVA_DRIVER_NAME = "d3d12";
-      # GALLIUM_DRIVER = "d3d12";
-      # LD_LIBRARY_PATH = "/usr/lib/wsl/lib";
     };
   };
 
   nixpkgs.config.allowUnfree = true;
   fonts.fontconfig.enable = true;
+  xdg.configFile."niri/config.kdl".source = ./niri/config.kdl;
   programs = {
     codex = {
       enable = true;
@@ -405,7 +403,6 @@
   };
 
   services = {
-    gnome-keyring.enable = true;
     home-manager.autoUpgrade.useFlake = true;
     gpg-agent = {
       enable = true;
@@ -413,18 +410,4 @@
     };
   };
 
-  xdg.portal = {
-    enable = true;
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-gtk
-    ];
-    config = {
-      common = {
-        default = [ "gtk" ];
-        "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
-        "org.freedesktop.impl.portal.OpenURI" = [ "gtk" ];
-      };
-    };
-    xdgOpenUsePortal = true;
-  };
 }
