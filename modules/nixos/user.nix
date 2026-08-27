@@ -3,6 +3,7 @@
 {
   users.defaultUserShell = pkgs.nushell;
   users.users.schlich = {
+    uid = 1001;
     shell = pkgs.nushell;
     isNormalUser = true;
     extraGroups = [

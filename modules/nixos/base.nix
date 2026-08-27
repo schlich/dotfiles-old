@@ -1,12 +1,23 @@
 { pkgs, ... }:
 
 {
-  nix.settings = {
-    experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
-    trusted-users = [ "schlich" ];
+  nix = {
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 14d";
+    };
+    optimise = {
+      automatic = true;
+      dates = [ "weekly" ];
+    };
+    settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+      trusted-users = [ "schlich" ];
+    };
   };
   nixpkgs.config.allowUnfree = true;
 

@@ -1,14 +1,11 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix ];
-
   boot.loader = {
     efi.canTouchEfiVariables = true;
     limine = {
       enable = true;
       efiSupport = true;
-      efiInstallAsRemovable = true;
       maxGenerations = 10;
       biosSupport = false;
       extraEntries = ''

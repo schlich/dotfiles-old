@@ -129,20 +129,47 @@
           inherit system modules;
           specialArgs = { inherit inputs; };
         };
-
-      nixosConfigurations = {
-        asus = mkNixos [
+      internalNvmeMigration = pkgs.writeShellApplication {
+        name = "internal-nvme-migration";
+        runtimeInputs = with pkgs; [
+          btrfs-progs
+          coreutils
+          cryptsetup
+          dosfstools
+          efibootmgr
+          findutils
+          gawk
+          gnugrep
+          gptfdisk
+          nixos-install-tools
+          p7zip
+          parted
+          rsync
+          systemd
+          util-linux
+        ];
+        text = builtins.readFile ./scripts/internal-nvme-migration.sh;
+      };
+      mkAsus =
+        storageModule:
+        mkNixos [
           determinate.nixosModules.default
           inputs.noctalia-greeter.nixosModules.default
           # inputs.ragenix.nixosModules.default
           ./configuration.nix
+          storageModule
           {
             environment.systemPackages = [
               fh.packages.x86_64-linux.default
               pkgs.jj-starship
+              internalNvmeMigration
             ];
           }
         ];
+
+      nixosConfigurations = {
+        asus = mkAsus ./hosts/asus/storage-internal.nix;
+        asus-usb = mkAsus ./hosts/asus/hardware-configuration.nix;
       };
 
       mkHome = home-manager.lib.homeManagerConfiguration {
@@ -187,7 +214,15 @@
         '';
       };
 
-      packages.${system}.default = homeConfigurations.schlich.activationPackage;
+      packages.${system} = {
+        default = homeConfigurations.schlich.activationPackage;
+        internal-nvme-migration = internalNvmeMigration;
+      };
+
+      apps.${system}.internal-nvme-migration = {
+        type = "app";
+        program = "${internalNvmeMigration}/bin/internal-nvme-migration";
+      };
 
       formatter.${system} = pkgs.nixfmt-tree;
 
