@@ -257,8 +257,6 @@ layout {
 // which may be more convenient to use.
 // See the binds section below for more spawn examples.
 // spawn-at-startup "noctalia-shell"
-spawn-sh-at-startup "exec terminal --class niri-config --directory \"$HOME/dotfiles\" editor"
-spawn-sh-at-startup "exec terminal --class niri-terminal --directory \"$HOME\" zellij"
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
