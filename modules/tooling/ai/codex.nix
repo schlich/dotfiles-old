@@ -5,7 +5,6 @@
 
   programs.codex = {
     enable = true;
-    enableMcpIntegration = true;
     skills = {
       immersive-songwriting-studio = ../../../copilot/skills/immersive-songwriting-studio;
       gh-stack = "${inputs.gh-stack}/skills/gh-stack";
@@ -21,10 +20,6 @@
       hz-store-pwa = "${inputs.meta-quest-agentic-tools}/skills/hz-store-pwa";
       hz-vr-debug = "${inputs.meta-quest-agentic-tools}/skills/hz-vr-debug";
       metavr-cli = "${inputs.meta-quest-agentic-tools}/skills/metavr-cli";
-    };
-    settings.mcp_servers.github = {
-      url = "https://api.githubcopilot.com/mcp/";
-      bearer_token_env_var = "GITHUB_TOKEN";
     };
   };
 
