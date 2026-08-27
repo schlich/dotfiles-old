@@ -1,6 +1,6 @@
 ---
 name: trunk-based-jj
-description: "Use for JJ-first trunk development and Nix flake changes in schlich/dotfiles: inspect or sync main, edit NixOS or Home Manager configuration, validate with Prek and Nix, publish a GitHub PR, monitor CI, use merge queues, or inspect JJ-managed stacks."
+description: "Primary workflow for routine work in schlich/dotfiles: use JJ-first trunk development, edit NixOS or Home Manager configuration, validate with Prek and Nix, publish or monitor GitHub PRs, use merge queues, and inspect JJ-managed stacks. This skill includes the normal JJ operations needed by the repository; do not also load the generic jj skill unless the task needs advanced JJ syntax, history diagnosis, or recovery beyond this workflow."
 ---
 
 # JJ-first trunk development
