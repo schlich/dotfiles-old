@@ -1,6 +1,6 @@
 ---
 name: jj
-description: Expert guidance for using JJ (Jujutsu) version control system. Use when working with JJ, whatever the subject. Operations, revsets, templates, debugging change evolution, etc. Covers JJ commands, template system, evolog, operations log, and interoperability with git remotes.
+description: "Specialized guidance for Jujutsu (JJ). Use when the user asks for JJ help or the task requires advanced revsets, templates, change-evolution or operations-log diagnosis, recovery, conflict or history surgery, unfamiliar command syntax, or detailed Git-remote interoperability. Do not use merely because a repository's routine workflow uses JJ; prefer its repository-specific workflow skill for ordinary status, diff, describe, validation, publication, and preservation of unrelated changes."
 ---
 
 # JJ (Jujutsu) Version Control Helper
