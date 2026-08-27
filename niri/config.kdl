@@ -258,6 +258,10 @@ layout {
 // See the binds section below for more spawn examples.
 // spawn-at-startup "noctalia-shell"
 
+hotkey-overlay {
+    skip-at-startup
+}
+
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
 // Additionally, clients will be informed that they are tiled, removing some client-side rounded corners.
@@ -363,7 +367,7 @@ binds {
     Mod+Space { spawn-sh "noctalia msg panel-toggle launcher"; }
     Mod+S { spawn-sh "noctalia msg panel-toggle control-center"; }
     Mod+Shift+S { spawn-sh "noctalia msg settings-toggle"; }
-    Mod+B { spawn "google-chrome"; }
+    Mod+B { spawn "google-chrome" "--profile-directory=Default"; }
     Super+Alt+L { spawn "swaylock"; }
     Alt+Tab { spawn-sh "noctalia msg window-switcher"; }
 
