@@ -32,4 +32,6 @@ in
     enable = true;
     package = desktopPackage;
   };
+  xdg.configFile."autostart/codex-desktop.desktop".source =
+    "${desktopPackage}/share/applications/codex-desktop.desktop";
 }
