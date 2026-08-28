@@ -22,13 +22,5 @@
     enable = true;
   };
   networking.firewall.allowedTCPPorts = [ 8080 ];
-  services.kmonad = {
-    enable = true;
-    keyboards.myKMonadOutput = {
-      device = "/dev/input/by-id/usb-ROYUAN_ROYALAXE_R100-event-kbd";
-      config = builtins.readFile ../../system/kmonad.kbd;
-    };
-  };
-
   system.stateVersion = "26.05";
 }

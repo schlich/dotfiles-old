@@ -1,25 +1,15 @@
 { inputs, pkgs, ... }:
 
+let
+  skills = import ./shared-skills.nix { inherit inputs; };
+in
+
 {
   imports = [ ./common.nix ];
 
   programs.codex = {
     enable = true;
-    skills = {
-      immersive-songwriting-studio = ../../../copilot/skills/immersive-songwriting-studio;
-      gh-stack = "${inputs.gh-stack}/skills/gh-stack";
-      grill-me = "${inputs.grill-me}/.agents/skills/grill-me";
-      jj = ../../../copilot/skills/jj;
-      marimo-pair = "${inputs.marimo-pair}/skills/marimo-pair";
-      nu = ../../../copilot/skills/nushell;
-      hz-immersive-designer = "${inputs.meta-quest-agentic-tools}/skills/hz-immersive-designer";
-      hz-iwsdk-webxr = "${inputs.meta-quest-agentic-tools}/skills/hz-iwsdk-webxr";
-      hz-new-project-creation = "${inputs.meta-quest-agentic-tools}/skills/hz-new-project-creation";
-      hz-quest-verify-first = "${inputs.meta-quest-agentic-tools}/skills/hz-quest-verify-first";
-      hz-store-pwa = "${inputs.meta-quest-agentic-tools}/skills/hz-store-pwa";
-      hz-vr-debug = "${inputs.meta-quest-agentic-tools}/skills/hz-vr-debug";
-      metavr-cli = "${inputs.meta-quest-agentic-tools}/skills/metavr-cli";
-    };
+    inherit skills;
   };
 
   home.file = {
@@ -31,9 +21,9 @@
       developer_instructions = """
       Handle Nix flake changes in schlich/dotfiles with JJ-first version control discipline.
 
-      Inspect the current workspace before editing. Use JJ, not mutating Git, for repository writes. Preserve unrelated changes. Before risky JJ history operations, create a checkpoint with copilot/skills/jj/scripts/jj-checkpoint.
+      Inspect the current workspace before editing. Use JJ, not mutating Git, for repository writes. Preserve unrelated changes. Before risky JJ history operations, create a checkpoint with .agents/skills/jj/scripts/jj-checkpoint.
 
-      Keep the existing modular flake structure. Target only x86_64-linux for all flake outputs unless explicitly asked for more. Format Nix edits with nix fmt and validate home-level changes with nix build .#homeConfigurations.schlich.activationPackage; validate system-level changes with nix build .#nixosConfigurations.asus.config.system.build.toplevel. Do not activate configurations unless requested.
+      Keep the existing modular flake structure. Target only x86_64-linux for all flake outputs unless explicitly asked for more. Format Nix edits with nix fmt and validate NixOS changes with nix build .#nixosConfigurations.asus.config.system.build.toplevel. Do not activate configurations unless requested.
 
       When publication is requested, use jj-ci publish --auto-merge after validation. Let GitHub required checks and auto-merge deliver the change to main. Keep explanations concise and behavior-focused.
       """

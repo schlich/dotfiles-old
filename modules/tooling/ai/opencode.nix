@@ -8,6 +8,7 @@
 
 let
   agentSource = ../../../copilot/plugins/jj-flake-vigilance/agents;
+  skills = import ./shared-skills.nix { inherit inputs; };
   adaptAgentTools =
     replacement: file:
     lib.concatMapStringsSep "\n" (line: if lib.hasPrefix "tools:" line then replacement else line) (
@@ -40,21 +41,7 @@ in
       '';
     };
     enableMcpIntegration = true;
-    skills = {
-      immersive-songwriting-studio = ../../../copilot/skills/immersive-songwriting-studio;
-      gh-stack = "${inputs.gh-stack}/skills/gh-stack";
-      grill-me = "${inputs.grill-me}/.agents/skills/grill-me";
-      jj = ../../../copilot/skills/jj;
-      marimo-pair = "${inputs.marimo-pair}/skills/marimo-pair";
-      nu = ../../../copilot/skills/nushell;
-      hz-immersive-designer = "${inputs.meta-quest-agentic-tools}/skills/hz-immersive-designer";
-      hz-iwsdk-webxr = "${inputs.meta-quest-agentic-tools}/skills/hz-iwsdk-webxr";
-      hz-new-project-creation = "${inputs.meta-quest-agentic-tools}/skills/hz-new-project-creation";
-      hz-quest-verify-first = "${inputs.meta-quest-agentic-tools}/skills/hz-quest-verify-first";
-      hz-store-pwa = "${inputs.meta-quest-agentic-tools}/skills/hz-store-pwa";
-      hz-vr-debug = "${inputs.meta-quest-agentic-tools}/skills/hz-vr-debug";
-      metavr-cli = "${inputs.meta-quest-agentic-tools}/skills/metavr-cli";
-    };
+    inherit skills;
     # Copilot agents declare tools as a list, while OpenCode expects a boolean
     # map. Adapt only the copies installed in OpenCode's config.
     agents = {

@@ -6,7 +6,6 @@
     super-productivity
     zotero
     marimo
-    nirimap
     nodejs
     wget
     nixfmt

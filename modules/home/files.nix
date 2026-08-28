@@ -1,13 +1,6 @@
-{
-  config,
-  homeDirectory,
-  pkgs,
-  ...
-}:
+{ pkgs, ... }:
 
 {
-  xdg.configFile."home-manager".source =
-    config.lib.file.mkOutOfStoreSymlink "${homeDirectory}/dotfiles";
   xdg.configFile."nushell/completions/niri.nu".source =
     pkgs.runCommandLocal "niri-nushell-completions.nu"
       {

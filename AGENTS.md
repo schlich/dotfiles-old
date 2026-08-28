@@ -17,7 +17,9 @@
 - Add user packages in `modules/home/packages.nix`, version-control wrappers in
   `modules/programs/vcs.nix`, and AI client configuration in
   `modules/programs/ai.nix`.
-- Format Nix changes with `nix fmt`. Run the smallest relevant build:
+- Format Nix changes with `nix fmt`. Do not run Nix builds or other build/test
+  validation during agent responses unless the user explicitly requests it.
+  When explicitly requested, use the smallest relevant build:
   `nix build .#homeConfigurations.schlich.activationPackage` for Home Manager
   changes and `nix build .#nixosConfigurations.asus.config.system.build.toplevel`
   for system changes.
@@ -31,7 +33,7 @@
   working-copy changes.
 - Before risky history operations (`jj rebase`, `jj squash`, `jj abandon`,
   `jj split`, or `jj op restore`), create a checkpoint with
-  `copilot/skills/jj/scripts/jj-checkpoint`.
+  `.agents/skills/jj/scripts/jj-checkpoint`.
 - Use `jj-ci sync` only from an empty working copy. It fetches `origin`,
   advances the local `main` bookmark to `main@origin`, and rebases the working
   copy onto it.
@@ -70,8 +72,8 @@
 
 ## User-visible progress
 
-- Run routine inspection, formatting, and validation without dedicated
-  updates.
+- Run routine inspection and formatting without dedicated updates. Do not run
+  build or test validation unless the user explicitly requests it.
 - Do not name skills, tools, commands, or repository policies merely to show
   compliance.
 - For routine multi-step work, provide one short outcome-oriented update before
@@ -91,5 +93,6 @@
   package, option, and documentation queries; inspect the store only for an
   explicit user request, a specific path reported by a failure, or necessary
   source from an exact pinned flake input.
-- Keep Copilot plugins, optional skills, hooks, and agent definitions under
-  `copilot/`, and wire client exposure through `modules/programs/ai.nix`.
+- Keep provider-neutral agent skills under `.agents/skills/`. Keep Copilot
+  plugins, hooks, and plugin-bundled agent definitions under `copilot/`, and
+  wire client exposure through `modules/tooling/ai/`.

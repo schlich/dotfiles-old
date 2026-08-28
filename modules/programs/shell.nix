@@ -1,9 +1,20 @@
 { pkgs, ... }:
 
+let
+  atuinNushellConfig = pkgs.runCommandLocal "atuin-nushell-config.nu" { } ''
+    export HOME="$TMPDIR/home"
+    mkdir -p "$HOME"
+    ${pkgs.atuin}/bin/atuin init nu \
+      | ${pkgs.gnused}/bin/sed '0,/name: atuin$/{s/name: atuin$/name: atuin_search/}' \
+      | ${pkgs.gnused}/bin/sed '0,/name: atuin$/{s/name: atuin$/name: atuin_up/}' \
+      > "$out"
+  '';
+in
+
 {
   programs.atuin = {
     enable = true;
-    enableNushellIntegration = true;
+    enableNushellIntegration = false;
   };
 
   programs.carapace = {
@@ -30,6 +41,9 @@
     };
     envFile.source = ../../env.nu;
     configFile.source = ../../config.nu;
+    extraConfig = ''
+      source ${atuinNushellConfig}
+    '';
   };
 
   programs.starship = {
@@ -72,6 +86,5 @@
     enableNushellIntegration = true;
   };
 
-  programs.antigravity-cli.enable = true;
   programs.intelli-shell.settings.ai.enabled = true;
 }
