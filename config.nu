@@ -27,6 +27,36 @@ def ns [query?: string] {
     nix-search-tv print | fzf --preview 'nix-search-tv preview {}' --scheme history --query $q
 }
 
+# Discover packages and declared modules in the pinned configuration.
+def nix-discover [query: string] {
+    let needle = ($query | str lowercase)
+    let matching_options = {|flake_output: string|
+        ^nix eval --json $flake_output --apply 'builtins.attrNames'
+        | from json
+        | where {|name| ($name | str lowercase | str contains $needle) }
+    }
+
+    let packages = (
+        ^nix search --json nixpkgs $query
+        | from json
+        | transpose attribute package
+        | each {|row|
+            {
+                attribute: $row.attribute
+                version: ($row.package.version? | default null)
+                description: ($row.package.description? | default null)
+            }
+        }
+    )
+
+    {
+        packages: $packages
+        home_manager_programs: (do $matching_options ".#homeConfigurations.schlich.options.programs")
+        nixos_programs: (do $matching_options ".#nixosConfigurations.asus.options.programs")
+        nixos_services: (do $matching_options ".#nixosConfigurations.asus.options.services")
+    }
+}
+
 path add "~/.local/bin"
 # path add "~/.pixi/bin"
 # path add ($env.HOME | path join ".cargo/bin")
