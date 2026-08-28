@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   services = {
@@ -7,9 +7,10 @@
   };
 
   programs = {
-    niri.enable = true;
+    niri = {
+      enable = true;
+    };
     noctalia.enable = true;
     noctalia-greeter.enable = true;
   };
-  systemd.user.services.niri.enableDefaultPath = false;
 }

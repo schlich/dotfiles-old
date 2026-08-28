@@ -15,7 +15,7 @@ Work on: ${input:task:Describe the change, question, or repo state to reconcile}
 4. Use `jj`, not mutating `git`, for repository write operations.
 5. For implementation or repo-reconciliation requests, derive or tighten a concise jj change description so `@` matches the actual scope before finalizing.
 6. Preserve unrelated user changes. Only edit, describe, validate, or commit the work that belongs to the request or the already-pending flake work you are explicitly reconciling.
-7. Create a `copilot/skills/jj/scripts/jj-checkpoint` checkpoint before risky jj history edits.
+7. Create a `.agents/skills/jj/scripts/jj-checkpoint` checkpoint before risky jj history edits.
 8. Prefer existing project patterns over introducing new structure.
 9. Use the repository's real validation commands before concluding, choosing the smallest one that fits the touched surface:
    - `nix fmt`

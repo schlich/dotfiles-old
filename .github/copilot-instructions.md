@@ -8,7 +8,8 @@
   - `nix build .#checks.x86_64-linux.home-profiles`
 - Build the NixOS system configs:
   - `nix build .#nixosConfigurations.asus.config.system.build.toplevel`
-- There is no separate lint target defined in the flake; formatting is handled through `nix fmt` / `nixfmt-tree`
+- There is no separate lint target defined in the flake; formatting is handled through `nix fmt` / `nixfmt-tree`.
+- Do not run Nix builds or other build/test validation during agent responses unless the user explicitly requests it. The build commands above are available only when requested.
 
 ## High-level architecture
 

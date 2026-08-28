@@ -64,7 +64,7 @@
             nixpkgs.expr = "import (builtins.getFlake (builtins.toString ./.)).inputs.nixpkgs { }";
             options = {
               nixos.expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.asus.options";
-              home-manager.expr = "(builtins.getFlake (builtins.toString ./.)).homeConfigurations.schlich.options";
+              home-manager.expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.asus.options.home-manager.users.type.getSubOptions []";
             };
           };
         };

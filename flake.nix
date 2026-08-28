@@ -12,7 +12,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixgl.url = "github:nix-community/nixGL";
     nuenv.url = "https://flakehub.com/f/xav-ie/nuenv/*.tar.gz";
     ragenix = {
       url = "github:yaxitech/ragenix";
@@ -42,7 +41,7 @@
       url = "github:dmmulroy/jj-starship";
     };
     niri = {
-      url = "github:sodiboo/niri-flake";
+      url = "github:epireyn/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     noctalia = {
@@ -53,7 +52,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     fh.url = "https://flakehub.com/f/DeterminateSystems/fh/*.tar.gz";
-    agent-skills.url = "github:Kyure-A/agent-skills-nix";
+    agent-skills = {
+      url = "github:Kyure-A/agent-skills-nix";
+      inputs.home-manager.follows = "home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     anthropic-skills = {
       url = "github:anthropics/skills";
       flake = false;
@@ -73,57 +76,17 @@
       nixpkgs,
       fh,
       jj-starship,
+      nuenv,
       ...
     }:
     let
       system = "x86_64-linux";
       overlays = [
-        (final: prev: {
-          github-copilot-cli = prev.github-copilot-cli.overrideAttrs (old: rec {
-            version = "1.0.73";
-            src = prev.fetchurl {
-              url = "https://github.com/github/copilot-cli/releases/download/v${version}/copilot-linux-x64.tar.gz";
-              hash = "sha256:8f9bb5f7e364c267265d1e24ac2aea69ed559ddb956719c6db12a353de6c5970";
-            };
-            sourceRoot = ".";
-            installPhase = ''
-              runHook preInstall
-              install -Dm755 copilot "$out/bin/copilot"
-              runHook postInstall
-            '';
-            postInstall = "";
-          });
-          nirimap = prev.stdenvNoCC.mkDerivation rec {
-            pname = "nirimap";
-            version = "0.2.0";
-
-            src = prev.fetchurl {
-              url = "https://github.com/alexandergknoll/nirimap/releases/download/v${version}/nirimap-v${version}-x86_64-linux.tar.gz";
-              hash = "sha256-YDflubbAGgrbCzzUgpTA8GnBIZBImI3XZzzpv2y7Z4g=";
-            };
-
-            sourceRoot = ".";
-            installPhase = ''
-              runHook preInstall
-              install -Dm755 nirimap "$out/bin/nirimap"
-              runHook postInstall
-            '';
-
-            meta = {
-              description = "Generate a visual map of a Niri workspace";
-              homepage = "https://github.com/alexandergknoll/nirimap";
-              license = prev.lib.licenses.mit;
-              platforms = [ "x86_64-linux" ];
-              mainProgram = "nirimap";
-            };
-          };
-        })
         jj-starship.overlays.default
-        inputs.nuenv.overlays.default
+        nuenv.overlays.nuenv
       ];
       pkgs = import nixpkgs {
-        inherit system;
-        inherit overlays;
+        inherit system overlays;
         config.allowUnfree = true;
       };
       lib = nixpkgs.lib;
@@ -158,11 +121,25 @@
         storageModule:
         mkNixos [
           determinate.nixosModules.default
+          home-manager.nixosModules.home-manager
           inputs.noctalia-greeter.nixosModules.default
+          inputs.niri.nixosModules.niri
           # inputs.ragenix.nixosModules.default
           ./configuration.nix
           storageModule
           {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              extraSpecialArgs = {
+                inherit inputs;
+                username = "schlich";
+                homeDirectory = "/home/schlich";
+                stateVersion = "26.05";
+              };
+              users.schlich = import ./home.nix;
+            };
+            nixpkgs.overlays = overlays;
             environment.systemPackages = [
               fh.packages.x86_64-linux.default
               pkgs.jj-starship
@@ -176,38 +153,21 @@
         asus-usb = mkAsus ./hosts/asus/hardware-configuration.nix;
       };
 
-      mkHome = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [
-          ./home.nix
-        ];
-        extraSpecialArgs = {
-          inherit inputs;
-          username = "schlich";
-          homeDirectory = "/home/schlich";
-          stateVersion = "26.05";
-        };
-      };
-
-      homeConfigurations.schlich = mkHome;
-
-      homeManagerRepository = "${mkHome.config.home.homeDirectory}/dotfiles";
-
       homeCheck = pkgs.linkFarm "home-manager-check" (
         [
           {
             name = "activation";
-            path = mkHome.activationPackage;
+            path = nixosConfigurations.asus.config.home-manager.users.schlich.home.activationPackage;
           }
         ]
         ++ lib.mapAttrsToList (checkName: path: {
           name = checkName;
           inherit path;
-        }) mkHome.config.dotfiles.tooling.checks
+        }) nixosConfigurations.asus.config.home-manager.users.schlich.dotfiles.tooling.checks
       );
     in
     {
-      inherit nixosConfigurations homeConfigurations;
+      inherit nixosConfigurations;
 
       templates.default = {
         path = ./templates/default;
@@ -221,7 +181,7 @@
       };
 
       packages.${system} = {
-        default = homeConfigurations.schlich.activationPackage;
+        default = nixosConfigurations.asus.config.system.build.toplevel;
         internal-nvme-migration = internalNvmeMigration;
       };
 
@@ -234,11 +194,6 @@
 
       checks.${system} = {
         home-manager-nixos = homeCheck;
-        home-manager-repository-link = pkgs.runCommand "home-manager-repository-link-check" { } ''
-          test -L ${mkHome.config.xdg.configFile."home-manager".source}
-          test "$(readlink ${mkHome.config.xdg.configFile."home-manager".source})" = ${homeManagerRepository}
-          touch "$out"
-        '';
         niri-config =
           pkgs.runCommand "niri-config-check"
             {
