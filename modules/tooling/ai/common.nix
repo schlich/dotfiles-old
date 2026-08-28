@@ -4,6 +4,13 @@
   programs.mcp = {
     enable = true;
     servers = {
+      chrome-devtools = {
+        command = "npx";
+        args = [
+          "-y"
+          "chrome-devtools-mcp@latest"
+        ];
+      };
       nix = {
         command = "uvx";
         args = [ "mcp-nixos" ];

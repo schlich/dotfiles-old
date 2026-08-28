@@ -5,6 +5,9 @@
 - This repository is a Nix flake. Keep tooling, shell wrappers, agent assets,
   and workflow enablement declarative through `flake.nix`, `home.nix`, and
   `modules/`.
+- Preserve the existing modular flake structure. Do not introduce the
+  Dendritic Pattern as part of an unrelated change; adopting it requires a
+  deliberate architecture migration.
 - The active outputs are
   `homeConfigurations.schlich.activationPackage` and
   `nixosConfigurations.asus.config.system.build.toplevel`.
@@ -62,6 +65,19 @@
 - Do not run `gh stack init`, `add`, `submit`, `sync`, or `rebase`; they mutate
   Git-managed branches and violate the JJ boundary.
 
+## User-visible progress
+
+- Run routine inspection, formatting, and validation without dedicated
+  updates.
+- Do not name skills, tools, commands, or repository policies merely to show
+  compliance.
+- For routine multi-step work, provide one short outcome-oriented update before
+  starting. Add another only for a material result, decision, blocker, or
+  long-running status.
+- Mention an exact command only when the user asks, it fails, produces an
+  unexpected change, requires approval, or materially affects the result.
+- Group routine formatting and checks under “Validating the change.”
+
 ## Agents
 
 - Use the `trunk-triage` agent (GPT-5.6 Luna) only for read-only repository
@@ -72,5 +88,5 @@
   package, option, and documentation queries; inspect the store only for an
   explicit user request, a specific path reported by a failure, or necessary
   source from an exact pinned flake input.
-- Keep Copilot plugins, skills, hooks, and agent definitions under `copilot/`
-  and wire client exposure through `modules/programs/ai.nix`.
+- Keep Copilot plugins, optional skills, hooks, and agent definitions under
+  `copilot/`, and wire client exposure through `modules/programs/ai.nix`.

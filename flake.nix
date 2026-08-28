@@ -187,6 +187,8 @@
 
       homeConfigurations.schlich = mkHome;
 
+      homeManagerRepository = "${mkHome.config.home.homeDirectory}/dotfiles";
+
       homeCheck = pkgs.linkFarm "home-manager-check" (
         [
           {
@@ -228,6 +230,11 @@
 
       checks.${system} = {
         home-manager-nixos = homeCheck;
+        home-manager-repository-link = pkgs.runCommand "home-manager-repository-link-check" { } ''
+          test -L ${mkHome.config.xdg.configFile."home-manager".source}
+          test "$(readlink ${mkHome.config.xdg.configFile."home-manager".source})" = ${homeManagerRepository}
+          touch "$out"
+        '';
         niri-config =
           pkgs.runCommand "niri-config-check"
             {
