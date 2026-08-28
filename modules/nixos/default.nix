@@ -7,5 +7,6 @@
     ./desktop.nix
     ./user.nix
     ./docker.nix
+    ./files.nix
   ];
 }
