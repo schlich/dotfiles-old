@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 
 {
   home.packages = with pkgs; [
@@ -46,6 +46,7 @@
     ripgrep
     wl-clipboard-rs
     gh-stack
-    nur.repos.foolnotion.paseo
+    inputs.paseo.packages.${pkgs.system}.default
+    inputs.paseo.packages.${pkgs.system}.desktop
   ];
 }

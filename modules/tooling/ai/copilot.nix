@@ -54,13 +54,19 @@ in
       input = "meta-quest-agentic-tools";
       subdir = "skills";
     };
+    sources.mattpocock = {
+      input = "mattpocock-skills";
+      subdir = "skills";
+    };
     skills.enable = [
       "pdf"
       "marimo-pair"
       "anywidget"
       "hz-iwsdk-webxr"
     ];
+    skills.enableAll = [ "mattpocock" ];
     targets.copilot.enable = true;
+    targets.opencode.enable = true;
   };
 
   dotfiles.tooling = {

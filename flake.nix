@@ -3,8 +3,8 @@
 
   inputs = {
     nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1";
-    nur = {
-      url = "github:nix-community/NUR";
+    paseo = {
+      url = "github:getpaseo/paseo";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
@@ -32,6 +32,10 @@
     };
     grill-me = {
       url = "github:udecode/plate";
+      flake = false;
+    };
+    mattpocock-skills = {
+      url = "github:mattpocock/skills";
       flake = false;
     };
     jj-starship = {
@@ -116,7 +120,6 @@
         })
         jj-starship.overlays.default
         inputs.nuenv.overlays.default
-        inputs.nur.overlays.default
       ];
       pkgs = import nixpkgs {
         inherit system;

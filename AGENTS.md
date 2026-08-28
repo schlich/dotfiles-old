@@ -5,6 +5,9 @@
 - This repository is a Nix flake. Keep tooling, shell wrappers, agent assets,
   and workflow enablement declarative through `flake.nix`, `home.nix`, and
   `modules/`.
+- Target only `x86_64-linux` for all flake outputs (`packages`, `devShells`,
+  `checks`, `formatter`, `apps`, `nixosConfigurations`, `homeConfigurations`,
+  etc.) unless explicitly asked to support additional architectures or platforms.
 - Preserve the existing modular flake structure. Do not introduce the
   Dendritic Pattern as part of an unrelated change; adopting it requires a
   deliberate architecture migration.

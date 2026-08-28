@@ -3,6 +3,7 @@
 ## Development
 
 - Keep project tooling and checks declarative in `flake.nix`.
+- Target only `x86_64-linux` for all flake outputs unless explicitly requested to support additional architectures.
 - Enter the environment with `direnv allow` or `nix develop`.
 - Prefer Nushell for scripts and structured data pipelines. Use `.nu` files and
   `#!/usr/bin/env nu` for executable scripts.
