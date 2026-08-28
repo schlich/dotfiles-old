@@ -10,7 +10,6 @@
       gh-stack = "${inputs.gh-stack}/skills/gh-stack";
       grill-me = "${inputs.grill-me}/.agents/skills/grill-me";
       jj = ../../../copilot/skills/jj;
-      trunk-based-jj = ../../../copilot/skills/trunk-based-jj;
       marimo-pair = "${inputs.marimo-pair}/skills/marimo-pair";
       nu = ../../../copilot/skills/nushell;
       hz-immersive-designer = "${inputs.meta-quest-agentic-tools}/skills/hz-immersive-designer";

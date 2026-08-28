@@ -3,6 +3,13 @@
 let
   codexConfig = (pkgs.formats.toml { }).generate "codex-system-config" {
     mcp_servers = {
+      chrome-devtools = {
+        command = "npx";
+        args = [
+          "-y"
+          "chrome-devtools-mcp@latest"
+        ];
+      };
       github = {
         url = "https://api.githubcopilot.com/mcp/";
         bearer_token_env_var = "GITHUB_TOKEN";

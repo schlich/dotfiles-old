@@ -32,7 +32,6 @@ in
     inherit package;
     enableMcpIntegration = true;
     agents.trunk-triage = ../../../copilot/plugins/jj-flake-vigilance/agents/trunk-triage.agent.md;
-    skills.trunk-based-jj = ../../../copilot/skills/trunk-based-jj;
     settings.notifications = true;
     skills.github-pr-checks = ../../../copilot/skills/github-pr-checks;
   };
