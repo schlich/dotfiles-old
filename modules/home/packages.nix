@@ -2,7 +2,7 @@
 
 {
   home.packages = with pkgs; [
-    github-copilot-app
+    bubblewrap
     super-productivity
     zotero
     marimo
@@ -46,5 +46,6 @@
     ripgrep
     wl-clipboard-rs
     gh-stack
+    nur.repos.foolnotion.paseo
   ];
 }

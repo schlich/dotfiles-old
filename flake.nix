@@ -3,6 +3,10 @@
 
   inputs = {
     nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1";
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -112,6 +116,7 @@
         })
         jj-starship.overlays.default
         inputs.nuenv.overlays.default
+        inputs.nur.overlays.default
       ];
       pkgs = import nixpkgs {
         inherit system;
