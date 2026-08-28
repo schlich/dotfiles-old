@@ -21,6 +21,7 @@
 
 ## Key conventions
 
+- Target only `x86_64-linux` for all flake outputs (`packages`, `devShells`, `checks`, `formatter`, `apps`, `nixosConfigurations`, `homeConfigurations`, etc.) unless explicitly asked for more.
 - Prefer Nushell, not Bash, for shell snippets and scripts. The repo's shell config, aliases, and AI assistant instructions are written around `nu`.
 - Prefer Jujutsu (`jj`) workflows over Git-centric ones. The repo config enables `jjui`, custom starship `jj` status, and bundled JJ skills/reference material.
 - Keep shared state in `modules/home` and `modules/programs`; keep selectable tools isolated under `modules/tooling/<category>/<tool>.nix`.

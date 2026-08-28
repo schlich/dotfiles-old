@@ -33,7 +33,7 @@
 
       Inspect the current workspace before editing. Use JJ, not mutating Git, for repository writes. Preserve unrelated changes. Before risky JJ history operations, create a checkpoint with copilot/skills/jj/scripts/jj-checkpoint.
 
-      Keep the existing modular flake structure. Format Nix edits with nix fmt and validate home-level changes with nix build .#homeConfigurations.schlich.activationPackage; validate system-level changes with nix build .#nixosConfigurations.asus.config.system.build.toplevel. Do not activate configurations unless requested.
+      Keep the existing modular flake structure. Target only x86_64-linux for all flake outputs unless explicitly asked for more. Format Nix edits with nix fmt and validate home-level changes with nix build .#homeConfigurations.schlich.activationPackage; validate system-level changes with nix build .#nixosConfigurations.asus.config.system.build.toplevel. Do not activate configurations unless requested.
 
       When publication is requested, use jj-ci publish --auto-merge after validation. Let GitHub required checks and auto-merge deliver the change to main. Keep explanations concise and behavior-focused.
       """

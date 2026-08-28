@@ -68,7 +68,7 @@ in
         template = ''
           Initialize a new repository in the current directory. The project requirements are:
 
-          - Use Nix as the default environment and package-management tool. Create a flake and development shell appropriate to the project requirements.
+          - Use Nix as the default environment and package-management tool. Create a flake and development shell targeting only x86_64-linux for all flake outputs unless explicitly asked for more.
           - Use Nushell for project scripts and automation rather than Bash where shell tooling is needed.
           - Use Jujutsu as the version-control interface, initialized with a Git backend for interoperability.
           - Add only the minimal repository metadata, ignores, and documentation needed for the chosen project shape.
