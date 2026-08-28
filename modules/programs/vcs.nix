@@ -10,6 +10,7 @@
       email = "ty.schlich@gmail.com";
       name = "Ty Schlichenmeyer";
     };
+    settings.push.autoSetupRemote = true;
     settings.remote.pushDefault = "origin";
   };
   programs.gpg.enable = true;
