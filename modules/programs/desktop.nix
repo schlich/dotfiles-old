@@ -2,6 +2,7 @@
 
 {
   programs = {
+    antigravity.enable = true;
     bottom.enable = true;
     herdr.enable = true;
     noctalia = {
