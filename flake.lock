@@ -64,6 +64,22 @@
         "type": "github"
       }
     },
+    "archify": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1788102311,
+        "narHash": "sha256-eTqSDb2Vw9a+XxTbjoDzhzRicwkpAcx0N8tBAEwVH1Y=",
+        "owner": "tt-a1i",
+        "repo": "archify",
+        "rev": "5de7275fe87a66a19d52a4d9b0b3a4f2a5a90115",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tt-a1i",
+        "repo": "archify",
+        "type": "github"
+      }
+    },
     "blueprint": {
       "inputs": {
         "nixpkgs": [
@@ -818,6 +834,7 @@
       "inputs": {
         "agent-skills": "agent-skills",
         "anthropic-skills": "anthropic-skills",
+        "archify": "archify",
         "determinate": "determinate",
         "fh": "fh",
         "gh-stack": "gh-stack",
