@@ -61,6 +61,10 @@
       url = "github:anthropics/skills";
       flake = false;
     };
+    archify = {
+      url = "github:tt-a1i/archify";
+      flake = false;
+    };
     meta-quest-agentic-tools = {
       url = "github:meta-quest/agentic-tools";
       flake = false;
