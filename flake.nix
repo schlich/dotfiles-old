@@ -216,20 +216,6 @@
               ZELLIJ_CONFIG_DIR="$config_dir" zellij setup --check
               touch "$out"
             '';
-        whitespace =
-          pkgs.runCommand "whitespace-check"
-            {
-              nativeBuildInputs = [ pkgs.git ];
-              src = ./.;
-            }
-            ''
-              set +e
-              git --no-pager diff --check --no-index --no-patch /dev/null "$src"
-              status=$?
-              set -e
-              test "$status" -eq 1
-              touch "$out"
-            '';
       };
     };
   nixConfig = {

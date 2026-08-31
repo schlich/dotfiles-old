@@ -11,8 +11,6 @@
       supplying every required argument or message flag explicitly.
     '';
     ".agents/skills/jj".source = ../../../.agents/skills/jj;
-    ".agents/skills/jj-flake-evolution".source =
-      ../../../copilot/plugins/jj-flake-vigilance/skills/jj-flake-evolution;
     ".agents/skills/nushell".source = ../../../.agents/skills/nushell;
     ".agents/skills/nushell-plugin-builder".source = ../../../.agents/skills/nushell/plugin-builder;
     ".agents/skills/nushell-text-processing".source = ../../../.agents/skills/nushell/text-processing;
