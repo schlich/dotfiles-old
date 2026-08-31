@@ -9,7 +9,10 @@
   programs.ghostty = lib.mkIf (config.dotfiles.primary.terminal == "ghostty") {
     enable = true;
     installBatSyntax = true;
-    settings.font-family = "Monaspace Krypton";
+    settings = {
+      copy-on-select = true;
+      font-family = "Monaspace Krypton";
+    };
   };
 
   dotfiles.tooling.terminals.ghostty.launcher = ''

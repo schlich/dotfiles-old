@@ -33,6 +33,22 @@
         "$left"
         "$right"
       ];
+      fix.tools.nixfmt = {
+        command = [
+          "nixfmt"
+          "--filename=$path"
+        ];
+        patterns = [ "glob:'**/*.nix'" ];
+      };
+      fix.tools.ruff-format = {
+        command = [
+          "ruff"
+          "format"
+          "--stdin-filename=$path"
+          "-"
+        ];
+        patterns = [ "glob:'**/*.py'" ];
+      };
       git.push = "origin";
     };
   };

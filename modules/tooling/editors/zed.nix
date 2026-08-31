@@ -16,14 +16,12 @@ in
     ".config/zed/AGENTS.md".source = ../ai/global-agent-instructions.md;
   }
   // lib.mapAttrs' (
-    name: source: lib.nameValuePair ".agents/skills/${name}" { inherit source; }
-  ) skills
-  // {
-    ".agents/skills/jj".source = ../../../.agents/skills/jj;
-    ".agents/skills/nushell".source = ../../../.agents/skills/nushell;
-    ".agents/skills/nushell-plugin-builder".source = ../../../.agents/skills/nushell/plugin-builder;
-    ".agents/skills/nushell-text-processing".source = ../../../.agents/skills/nushell/text-processing;
-  };
+    name: source:
+    lib.nameValuePair ".agents/skills/${name}" {
+      inherit source;
+      recursive = true;
+    }
+  ) skills;
 
   programs.zed-editor = {
     enable = true;
