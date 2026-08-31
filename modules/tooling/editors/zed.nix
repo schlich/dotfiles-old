@@ -1,15 +1,24 @@
-{ pkgs, ... }:
+{
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
+
+let
+  skills = import ../ai/shared-skills.nix { inherit inputs; };
+in
 
 {
-  # Zed discovers reusable skills from ~/.agents/skills. Keep the JJ workflow
-  # shared with the other configured agent clients rather than duplicating it.
+  # Zed discovers global instructions from ~/.config/zed/AGENTS.md and
+  # reusable skills from ~/.agents/skills. Share both with the other clients.
   home.file = {
-    ".config/zed/AGENTS.md".text = ''
-      # Jujutsu
-
-      Do not invoke `jj` in interactive mode. Use only non-interactive invocations,
-      supplying every required argument or message flag explicitly.
-    '';
+    ".config/zed/AGENTS.md".source = ../ai/global-agent-instructions.md;
+  }
+  // lib.mapAttrs' (
+    name: source: lib.nameValuePair ".agents/skills/${name}" { inherit source; }
+  ) skills
+  // {
     ".agents/skills/jj".source = ../../../.agents/skills/jj;
     ".agents/skills/nushell".source = ../../../.agents/skills/nushell;
     ".agents/skills/nushell-plugin-builder".source = ../../../.agents/skills/nushell/plugin-builder;
