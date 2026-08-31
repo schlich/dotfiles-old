@@ -13,6 +13,12 @@
   };
   fonts.fontconfig.enable = true;
   home.packages = [
+    (pkgs.writeNuScriptBin "nixos-activate" ''
+      # Rebuild and activate the NixOS configuration for this machine.
+      def --wrapped main [...args] {
+        ^sudo nixos-rebuild switch --flake "/home/schlich/dotfiles#asus" ...$args
+      }
+    '')
     (pkgs.writeNuScriptBin "home-activate" ''
       # Build and activate the Home Manager configuration embedded in NixOS.
       def main [] {
