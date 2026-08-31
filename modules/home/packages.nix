@@ -9,6 +9,7 @@
     nodejs
     wget
     nixfmt
+    ruff
     systemctl-tui
     systemd-manager-tui
     nix-search-tv

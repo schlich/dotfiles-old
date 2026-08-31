@@ -63,6 +63,7 @@ def sync-main [] {
 }
 
 def validate-change [] {
+    run-command "fixing the current JJ change" { ^jj fix -s @ } | ignore
     run-command "running Prek" { ^prek run --all-files } | ignore
 }
 

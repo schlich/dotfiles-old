@@ -45,6 +45,10 @@ non-empty current change has no description. The command stops if the helper
 does not add a subject. `jj-describe` delegates to the authenticated Codex CLI
 in read-only mode and uses its final response as the description.
 
+Validation first runs `jj fix -s @`, which applies the configured `nixfmt` and
+Ruff formatters to Nix and Python files in the current change before Prek
+checks them.
+
 For an explicitly planned dependency stack, create and push the ordered JJ
 bookmarks, link the existing PRs with `gh stack link`, inspect with
 `gh stack view --json`, and submit the fully green stack with:
