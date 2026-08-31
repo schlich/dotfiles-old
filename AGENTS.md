@@ -24,6 +24,19 @@
   changes and `nix build .#nixosConfigurations.asus.config.system.build.toplevel`
   for system changes.
 
+## Applying configuration
+
+- When Nix configuration edits are ready to apply, identify whether they affect
+  the NixOS system, Home Manager, or both, and ask the user for explicit
+  approval before activating anything.
+- For NixOS changes, offer `sudo nixos-rebuild switch --flake .#asus`; never
+  run it automatically.
+- Home Manager is embedded in the `asus` NixOS configuration. Do not use the
+  standalone `home-manager switch` workflow for this repository. Use
+  `home-activate` for a home-only activation without `sudo`. This does not
+  apply system-owned changes, including `home.packages` because
+  `home-manager.useUserPackages = true`.
+
 ## Version control
 
 - Use Jujutsu for all repository mutations: changes, descriptions, bookmarks,

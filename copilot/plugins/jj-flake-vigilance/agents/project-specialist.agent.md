@@ -47,6 +47,18 @@ Evolve this flake carefully with **jj-first** version control discipline. Prefer
 10. Preserve unrelated user changes, and only finalize the in-scope implementation work with `jj commit` after formatting and the relevant validation command succeed; keep the change uncommitted if validation fails.
 11. Keep explanations concise and behavior-focused.
 
+## Applying configuration
+
+When Nix configuration edits are ready to apply, identify whether they affect
+the NixOS system, Home Manager, or both, and ask the user for explicit approval
+before activating anything. For NixOS changes, offer
+`sudo nixos-rebuild switch --flake .#asus`; never run it automatically.
+
+Home Manager is embedded in the `asus` NixOS configuration, so do not use the
+standalone `home-manager switch` workflow. Use `home-activate` for a home-only
+activation without `sudo`. It cannot apply system-owned changes, including
+`home.packages`, because `home-manager.useUserPackages = true`.
+
 ## Project Notes
 
 Prefer jj over git for all write operations. Read-only git inspection is acceptable, but commits, rebases, resets, switches, pushes, and other history edits should go through jj. Start by checking `jj status`, `jj diff`, and `jj log` so existing work is reconciled instead of skipped. Before risky jj history surgery such as rebase, squash, abandon, split, or op restore, record a checkpoint with `.agents/skills/jj/scripts/jj-checkpoint`. For implementation or repo-reconciliation requests, derive a jj change description from the user's requested outcome, apply it with `jj describe`, and keep it current if the scope shifts. Preserve unrelated user changes and only commit the in-scope work. Target only `x86_64-linux` for all flake outputs unless explicitly asked for more. Run `nix fmt` after Nix edits. Build `.#homeConfigurations.nixos.activationPackage` for home-level changes, `.#nixosConfigurations.nixos.config.system.build.toplevel` for the WSL host, and `.#nixosConfigurations.desktop.config.system.build.toplevel` for desktop system changes. When the user wants the change published, push the bookmarked change to `origin`, and if that publication uses a non-`main` bookmark, automatically open or update the matching PR against `main` before relying on the repo's GitHub Actions checks and default auto-merge policy. Only finalize with `jj commit` after the relevant formatting and validation succeed.
