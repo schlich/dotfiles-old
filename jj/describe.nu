@@ -5,9 +5,9 @@ def main [
 ] {
     print $"[jj-describe] Running for revset: ($revset)"
     if $prompt == null {
-        ^jj run -r $revset -- nu $env.CURRENT_FILE describe-one $agent
+        ^jj run --passthrough -r $revset -- nu $env.CURRENT_FILE describe-one $agent
     } else {
-        ^jj run -r $revset -- nu $env.CURRENT_FILE describe-one $agent $prompt
+        ^jj run --passthrough -r $revset -- nu $env.CURRENT_FILE describe-one $agent $prompt
     }
 }
 
