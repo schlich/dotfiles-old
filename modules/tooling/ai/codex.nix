@@ -13,6 +13,26 @@ in
   };
 
   home.file = {
+    ".codex/AGENTS.md" = {
+      force = true;
+      text = ''
+        # Shell conventions
+
+        The user's interactive and configured automation shell is Nushell. When
+        producing a user-facing shell command, IntelliShell template, alias, or
+        script, use valid Nushell syntax.
+
+        - Use `;` to run commands sequentially. Do not use Bash operators such
+          as `&&` or `||` unless deliberately invoking a POSIX shell.
+        - When a subsequent command must depend on an external command's exit
+          status, use Nushell control flow and `complete`; do not emulate it
+          with Bash chaining.
+        - A tool invocation may use its own execution shell, but never copy that
+          shell's syntax into a command intended for the user's Nushell prompt.
+        - Before saving a multi-command IntelliShell template, validate it with
+          `nu -c` when practical.
+      '';
+    };
     ".codex/agents/jj-flake-vigilance-specialist.toml".text = ''
       name = "jj_flake_vigilance_specialist"
       description = "Specialist for JJ-first, validation-heavy Nix flake changes in schlich/dotfiles."

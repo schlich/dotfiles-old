@@ -52,10 +52,15 @@ jj-ci github reconcile
 jj-ci github reconcile --apply
 ```
 
+`jj-ci publish` names publication bookmarks as
+`trunk/<descriptive-change-title>-<change-id>`; flake updates use
+`flake-update/<descriptive-change-title>-<change-id>`. The stable change-ID
+suffix prevents collisions while the title makes PR branches identifiable.
 For an ad hoc publication from a change based on `main`, use
-`jj git push --change @`. Jujutsu creates and pushes a `trunk/<change-id>`
-bookmark instead of updating `main`; use `jj-ci publish --auto-merge` when
-the matching pull request should be created and queued automatically.
+`jj git push --change @`. Jujutsu creates and pushes its configured
+`trunk/<change-id>` bookmark instead of updating `main`; use
+`jj-ci publish --auto-merge` when the matching pull request should be created
+and queued automatically.
 
 Use JJ for all change, bookmark, rebase, and push operations. Git is for
 read-only interoperability only. GitHub owns required checks, merge queues, and

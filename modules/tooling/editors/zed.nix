@@ -26,6 +26,11 @@
       # overridden through its settings.
       terminal.shell.program = "${pkgs.nushell}/bin/nu";
 
+      context_servers.nushell = {
+        command = "${pkgs.nushell}/bin/nu";
+        args = [ "--mcp" ];
+      };
+
       agent_servers.codex-acp = {
         type = "registry";
         favorite_config_option_values.collaboration_mode = [ "default" ];
