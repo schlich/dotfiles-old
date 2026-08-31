@@ -24,22 +24,19 @@ in
 
   programs.opencode = {
     enable = true;
-    package = pkgs.nuenv.writeScriptBin {
-      name = "opencode";
-      script = ''
-        def --wrapped main [...args] {
-          let github_token = (do -i { ^${pkgs.gh}/bin/gh auth token | str trim } | default "")
+    package = pkgs.writeNuScriptBin "opencode" ''
+      def --wrapped main [...args] {
+        let github_token = (do -i { ^${pkgs.gh}/bin/gh auth token | str trim } | default "")
 
-          if ($github_token | is-empty) {
+        if ($github_token | is-empty) {
+          ^${pkgs.opencode}/bin/opencode ...$args
+        } else {
+          with-env { GITHUB_TOKEN: $github_token } {
             ^${pkgs.opencode}/bin/opencode ...$args
-          } else {
-            with-env { GITHUB_TOKEN: $github_token } {
-              ^${pkgs.opencode}/bin/opencode ...$args
-            }
           }
         }
-      '';
-    };
+      }
+    '';
     enableMcpIntegration = true;
     inherit skills;
     # Copilot agents declare tools as a list, while OpenCode expects a boolean
@@ -79,7 +76,12 @@ in
   dotfiles.tooling.ai.opencode = {
     command = "${config.programs.opencode.package}/bin/opencode";
     automation = ''
-      ^${config.programs.opencode.package}/bin/opencode run --agent $agent --auto $prompt
+      let model = $env.AI_RUN_MODEL?
+      if $model == null {
+        ^${config.programs.opencode.package}/bin/opencode run --agent $agent --auto $prompt
+      } else {
+        ^${config.programs.opencode.package}/bin/opencode run --agent $agent --model $model --auto $prompt
+      }
     '';
   };
 }

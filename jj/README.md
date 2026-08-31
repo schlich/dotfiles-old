@@ -23,11 +23,11 @@ jj-ci github reconcile --apply
 ```
 
 `jj-ci publish` names publication bookmarks as
-`trunk/<descriptive-change-title>-<change-id>`. The stable change-ID suffix
-prevents collisions while the title makes PR branches identifiable.
+`<first-four-title-words>`. Keep change titles distinct so their bookmarks do
+not collide.
 For an ad hoc publication from a change based on `main`, use
-`jj git push --change @`. Jujutsu creates and pushes its configured
-`trunk/<change-id>` bookmark instead of updating `main`; use
+`jj git push --change @`. Jujutsu creates and pushes a bookmark instead of
+updating `main`; use
 `jj-ci publish --auto-merge` when the matching pull request should be created
 and queued automatically.
 
@@ -42,7 +42,8 @@ changeset before publishing it again.
 
 `jj-ci validate` and `jj-ci publish` invoke `jj-describe` automatically when a
 non-empty current change has no description. The command stops if the helper
-does not add a subject.
+does not add a subject. `jj-describe` pins its describing pass to GPT-5.6 Luna,
+independent of the primary AI runner's default model.
 
 For an explicitly planned dependency stack, create and push the ordered JJ
 bookmarks, link the existing PRs with `gh stack link`, inspect with

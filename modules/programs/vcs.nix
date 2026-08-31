@@ -34,18 +34,11 @@
         "$right"
       ];
       git.push = "origin";
-      templates.git_push_bookmark = ''"trunk/" ++ change_id.short()'';
     };
   };
 
   home.packages = [
-    (pkgs.nuenv.writeScriptBin {
-      name = "jj-describe";
-      script = builtins.readFile ../../jj/describe.nu;
-    })
-    (pkgs.nuenv.writeScriptBin {
-      name = "jj-ci";
-      script = builtins.readFile ../../jj/ci.nu;
-    })
+    (pkgs.writeNuScriptBin "jj-describe" (builtins.readFile ../../jj/describe.nu))
+    (pkgs.writeNuScriptBin "jj-ci" (builtins.readFile ../../jj/ci.nu))
   ];
 }
