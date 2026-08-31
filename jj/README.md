@@ -42,8 +42,8 @@ changeset before publishing it again.
 
 `jj-ci validate` and `jj-ci publish` invoke `jj-describe` automatically when a
 non-empty current change has no description. The command stops if the helper
-does not add a subject. `jj-describe` pins its describing pass to GPT-5.6 Luna,
-independent of the primary AI runner's default model.
+does not add a subject. `jj-describe` delegates to the authenticated Codex CLI
+in read-only mode and uses its final response as the description.
 
 For an explicitly planned dependency stack, create and push the ordered JJ
 bookmarks, link the existing PRs with `gh stack link`, inspect with

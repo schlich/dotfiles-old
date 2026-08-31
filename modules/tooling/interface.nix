@@ -155,7 +155,7 @@ in
       (pkgs.writeNuScriptBin "ai-run" ''
         def main [
           prompt: string
-          --agent: string = "general"
+        --agent: string = "default"
           --model: string
         ] {
           if $model == null {
