@@ -64,6 +64,13 @@
         pkgs.xdg-desktop-portal-gnome
         pkgs.xdg-desktop-portal-termfilechooser
       ];
+      # Niri/Noctalia does not provide a portal configuration of its own.  Without
+      # an explicit choice, the GNOME backend wins FileChooser requests and then
+      # fails while delegating them to a GNOME service that is not installed.
+      config.common = {
+        default = [ "gtk" ];
+        "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
+      };
     };
     autostart.enable = true;
   };

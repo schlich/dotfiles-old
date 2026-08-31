@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   xdg.configFile."nushell/completions/niri.nu".source =
@@ -14,4 +14,17 @@
   xdg.dataFile."wallpapers/niri-navigation.svg".source = ../../wallpapers/niri-navigation.svg;
   xdg.configFile."zellij/config.kdl".source = ../../zellij/config.kdl;
   xdg.configFile."zellij/layouts/default.kdl".source = ../../zellij/layouts/default.kdl;
+  xdg.userDirs = {
+    enable = true;
+    createDirectories = true;
+
+    download = "${config.home.homeDirectory}/Downloads";
+    documents = "${config.home.homeDirectory}/Documents";
+    music = "${config.home.homeDirectory}/Music";
+    pictures = "${config.home.homeDirectory}/Pictures";
+    videos = "${config.home.homeDirectory}/Videos";
+    desktop = "${config.home.homeDirectory}/Desktop";
+    publicShare = "${config.home.homeDirectory}/Public";
+    templates = "${config.home.homeDirectory}/Templates";
+  };
 }

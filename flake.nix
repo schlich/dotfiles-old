@@ -3,10 +3,6 @@
 
   inputs = {
     nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1";
-    paseo = {
-      url = "github:getpaseo/paseo";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -61,6 +57,10 @@
       url = "github:anthropics/skills";
       flake = false;
     };
+    modern-web-guidance = {
+      url = "github:GoogleChrome/modern-web-guidance";
+      flake = false;
+    };
     archify = {
       url = "github:tt-a1i/archify";
       flake = false;
@@ -86,6 +86,9 @@
     let
       system = "x86_64-linux";
       overlays = [
+        (final: _prev: {
+          chatgpt = final.callPackage ./packages/chatgpt.nix { };
+        })
         jj-starship.overlays.default
         nushellWith.overlays.default
       ];
@@ -188,6 +191,7 @@
 
       packages.${system} = {
         default = nixosConfigurations.asus.config.system.build.toplevel;
+        chatgpt = pkgs.chatgpt;
       };
 
       formatter.${system} = pkgs.nixfmt-tree;

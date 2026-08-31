@@ -2,11 +2,14 @@
 
 {
   home.packages = with pkgs; [
+    xdg-user-dirs
     bubblewrap
+    chatgpt
     super-productivity
     zotero
     marimo
     nodejs
+    ty
     wget
     nixfmt
     ruff
@@ -46,7 +49,5 @@
     ripgrep
     wl-clipboard-rs
     gh-stack
-    inputs.paseo.packages.${pkgs.stdenv.hostPlatform.system}.default
-    inputs.paseo.packages.${pkgs.stdenv.hostPlatform.system}.desktop
   ];
 }
