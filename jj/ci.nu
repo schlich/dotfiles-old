@@ -51,7 +51,8 @@ def require-ready-change [] {
 
 def sync-main [] {
     if (current-change "empty") != "true" {
-        error make { msg: "Sync only from an empty JJ working-copy change." }
+        run-command "starting an empty change for sync" { ^jj new @ } | ignore
+        print "Preserved the current change and started an empty change for sync."
     }
 
     run-command "fetching origin" { ^jj git fetch --remote origin } | ignore
