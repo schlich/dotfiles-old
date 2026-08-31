@@ -18,6 +18,16 @@ def current-change [template: string] {
     ^jj log -r @ --no-graph -T $template | str trim
 }
 
+def bookmark-name [prefix: string, title: string, change_id: string] {
+    let slug = ($title
+        | str lowercase
+        | str replace --all --regex '[^a-z0-9]+' '-'
+        | str trim --char '-')
+    let readable_slug = if ($slug | is-empty) { "change" } else { $slug }
+
+    $"($prefix)/($readable_slug)-($change_id)"
+}
+
 def ensure-flake-change [] {
     let changed_files = (^jj diff --name-only | lines | where { $in | is-not-empty })
 
@@ -56,7 +66,7 @@ def publish-change [merge: bool] {
 
     let change_id = (current-change "change_id.short()")
     let commit_id = (current-change "commit_id")
-    let branch = $"flake-update/($change_id)"
+    let branch = (bookmark-name "flake-update" $title $change_id)
 
     run-command "setting the update bookmark" {
         ^jj bookmark set $branch -r @
