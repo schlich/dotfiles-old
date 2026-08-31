@@ -31,6 +31,8 @@
         args = [ "--mcp" ];
       };
 
+      lsp.nil.settings.nil.nix.flake.autoArchive = true;
+
       agent_servers.codex-acp = {
         type = "registry";
         favorite_config_option_values.collaboration_mode = [ "default" ];

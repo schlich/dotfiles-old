@@ -100,27 +100,6 @@
           inherit system modules;
           specialArgs = { inherit inputs; };
         };
-      internalNvmeMigration = pkgs.writeShellApplication {
-        name = "internal-nvme-migration";
-        runtimeInputs = with pkgs; [
-          btrfs-progs
-          coreutils
-          cryptsetup
-          dosfstools
-          efibootmgr
-          findutils
-          gawk
-          gnugrep
-          gptfdisk
-          nixos-install-tools
-          p7zip
-          parted
-          rsync
-          systemd
-          util-linux
-        ];
-        text = builtins.readFile ./scripts/internal-nvme-migration.sh;
-      };
       mkAsus =
         storageModule:
         mkNixos [
@@ -147,7 +126,6 @@
             environment.systemPackages = [
               fh.packages.x86_64-linux.default
               pkgs.jj-starship
-              internalNvmeMigration
             ];
           }
         ];
@@ -186,12 +164,6 @@
 
       packages.${system} = {
         default = nixosConfigurations.asus.config.system.build.toplevel;
-        internal-nvme-migration = internalNvmeMigration;
-      };
-
-      apps.${system}.internal-nvme-migration = {
-        type = "app";
-        program = "${internalNvmeMigration}/bin/internal-nvme-migration";
       };
 
       formatter.${system} = pkgs.nixfmt-tree;
