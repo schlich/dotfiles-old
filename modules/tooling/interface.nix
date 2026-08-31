@@ -133,45 +133,40 @@ in
     };
 
     home.packages = mkIf (terminal != null && editor != null && ai != null) [
-      (pkgs.nuenv.writeScriptBin {
-        name = "terminal";
-        script = ''
-          def --wrapped main [
-            --directory: path = "."
-            --class: string = ""
-            ...args
-          ] {
-            ${terminal.launcher}
-          }
-        '';
-      })
-      (pkgs.nuenv.writeScriptBin {
-        name = "editor";
-        script = ''
-          def --wrapped main [...args] {
-            ^${editor.command} ...$args
-          }
-        '';
-      })
-      (pkgs.nuenv.writeScriptBin {
-        name = "ai";
-        script = ''
-          def --wrapped main [...args] {
-            ^${ai.command} ...$args
-          }
-        '';
-      })
-      (pkgs.nuenv.writeScriptBin {
-        name = "ai-run";
-        script = ''
-          def main [
-            prompt: string
-            --agent: string = "general"
-          ] {
+      (pkgs.writeNuScriptBin "terminal" ''
+        def --wrapped main [
+          --directory: path = "."
+          --class: string = ""
+          ...args
+        ] {
+          ${terminal.launcher}
+        }
+      '')
+      (pkgs.writeNuScriptBin "editor" ''
+        def --wrapped main [...args] {
+          ^${editor.command} ...$args
+        }
+      '')
+      (pkgs.writeNuScriptBin "ai" ''
+        def --wrapped main [...args] {
+          ^${ai.command} ...$args
+        }
+      '')
+      (pkgs.writeNuScriptBin "ai-run" ''
+        def main [
+          prompt: string
+          --agent: string = "general"
+          --model: string
+        ] {
+          if $model == null {
             ${ai.automation}
+          } else {
+            with-env { AI_RUN_MODEL: $model } {
+              ${ai.automation}
+            }
           }
-        '';
-      })
+        }
+      '')
     ];
   };
 }

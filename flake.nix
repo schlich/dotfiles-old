@@ -12,7 +12,7 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nuenv.url = "https://flakehub.com/f/xav-ie/nuenv/*.tar.gz";
+    nushellWith.url = "github:YPares/nushellWith/master";
     ragenix = {
       url = "github:yaxitech/ragenix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -80,14 +80,14 @@
       nixpkgs,
       fh,
       jj-starship,
-      nuenv,
+      nushellWith,
       ...
     }:
     let
       system = "x86_64-linux";
       overlays = [
         jj-starship.overlays.default
-        nuenv.overlays.nuenv
+        nushellWith.overlays.default
       ];
       pkgs = import nixpkgs {
         inherit system overlays;
