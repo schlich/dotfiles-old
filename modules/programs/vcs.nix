@@ -44,10 +44,6 @@
       script = builtins.readFile ../../jj/describe.nu;
     })
     (pkgs.nuenv.writeScriptBin {
-      name = "jj-flake";
-      script = builtins.readFile ../../jj/flake.nu;
-    })
-    (pkgs.nuenv.writeScriptBin {
       name = "jj-ci";
       script = builtins.readFile ../../jj/ci.nu;
     })

@@ -50,8 +50,7 @@
 - Use `jj-ci sync` only from an empty working copy. It fetches `origin`,
   advances the local `main` bookmark to `main@origin`, and rebases the working
   copy onto it.
-- Keep lock-file-only updates in `jj-flake`; use `jj-ci` for general trunk
-  work.
+- Use `jj-ci` for all trunk work, including lock-file-only updates.
 
 ## Local gates and pull requests
 
