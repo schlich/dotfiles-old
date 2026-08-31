@@ -11,6 +11,9 @@ script, use valid Nushell syntax.
   with Bash chaining.
 - A tool invocation may use its own execution shell, but never copy that
   shell's syntax into a command intended for the user's Nushell prompt.
+- Use Nushell (`nu`) for shell pipelines and text processing instead of tools
+  such as `jq`, `awk`, `sed`, `grep`, or `rg`; prefer structured Nushell
+  commands and pipelines for searching, filtering, and transforming data.
 - Before saving a multi-command IntelliShell template, validate it with
   `nu -c` when practical.
 
