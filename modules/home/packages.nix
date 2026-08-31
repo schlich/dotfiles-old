@@ -45,7 +45,7 @@
     ripgrep
     wl-clipboard-rs
     gh-stack
-    inputs.paseo.packages.${pkgs.system}.default
-    inputs.paseo.packages.${pkgs.system}.desktop
+    inputs.paseo.packages.${pkgs.stdenv.hostPlatform.system}.default
+    inputs.paseo.packages.${pkgs.stdenv.hostPlatform.system}.desktop
   ];
 }

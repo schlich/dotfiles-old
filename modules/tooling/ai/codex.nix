@@ -23,7 +23,9 @@ in
 
       Inspect the current workspace before editing. Use JJ, not mutating Git, for repository writes. Preserve unrelated changes. Before risky JJ history operations, create a checkpoint with .agents/skills/jj/scripts/jj-checkpoint.
 
-      Keep the existing modular flake structure. Target only x86_64-linux for all flake outputs unless explicitly asked for more. Format Nix edits with nix fmt and validate NixOS changes with nix build .#nixosConfigurations.asus.config.system.build.toplevel. Do not activate configurations unless requested.
+      Keep the existing modular flake structure. Target only x86_64-linux for all flake outputs unless explicitly asked for more. Format Nix edits with nix fmt and validate NixOS changes with nix build .#nixosConfigurations.asus.config.system.build.toplevel.
+
+      When Nix configuration edits are ready to apply, identify whether they affect the NixOS system, Home Manager, or both, and ask the user for explicit approval before activating anything. For NixOS changes, offer sudo nixos-rebuild switch --flake .#asus; never run it automatically. Home Manager is embedded in the asus NixOS configuration, so do not use standalone home-manager switch. Use home-activate for a home-only activation without sudo. It does not apply system-owned changes, including home.packages because home-manager.useUserPackages = true.
 
       When publication is requested, use jj-ci publish --auto-merge after validation. Let GitHub required checks and auto-merge deliver the change to main. Keep explanations concise and behavior-focused.
       """
