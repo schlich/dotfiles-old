@@ -67,11 +67,11 @@
     "archify": {
       "flake": false,
       "locked": {
-        "lastModified": 1788102311,
-        "narHash": "sha256-eTqSDb2Vw9a+XxTbjoDzhzRicwkpAcx0N8tBAEwVH1Y=",
+        "lastModified": 1788236059,
+        "narHash": "sha256-HpQiHaYnj1QBezOMXQbP21m6TJHUq9b5rjYVhwC3SB4=",
         "owner": "tt-a1i",
         "repo": "archify",
-        "rev": "5de7275fe87a66a19d52a4d9b0b3a4f2a5a90115",
+        "rev": "199360cc6687a7857b54dd188d4922b09e466a4b",
         "type": "github"
       },
       "original": {
@@ -380,11 +380,11 @@
     "grill-me": {
       "flake": false,
       "locked": {
-        "lastModified": 1787589017,
-        "narHash": "sha256-oeQE76HSzli9RdCU5Q+5r1w/P8lq0y/oaGIAjlB1310=",
+        "lastModified": 1788243761,
+        "narHash": "sha256-kq5amSQiTErrj7Lp4PsV2Nkze4SRWjXPtmqavSXnCcw=",
         "owner": "udecode",
         "repo": "plate",
-        "rev": "cce36d378b2f1e5c775dafe1a67c2215165c982c",
+        "rev": "12a034f7cfe698cc020fade0d4849373d6faa065",
         "type": "github"
       },
       "original": {
@@ -400,11 +400,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1787797243,
-        "narHash": "sha256-8+Q7NOB7RPajRjA4pbCDLzqH+MTjnG9x6LUPLfL2joA=",
+        "lastModified": 1788229478,
+        "narHash": "sha256-G0F2rFORVcFkEvVdE/qWQTnYekIc77YP5/vRF9nZlxU=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "99c9ec63390f1d8c14d95d9e8b17cc29cfbd4e11",
+        "rev": "1dc2d1f720ab17fc7981e087346bf54b26d284b1",
         "type": "github"
       },
       "original": {
@@ -518,6 +518,22 @@
         "type": "github"
       }
     },
+    "modern-web-guidance": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1788207354,
+        "narHash": "sha256-KaI/X2KSBrEoiLdxVEhAuCVFBsVLpXK3Cl/cpv6xp28=",
+        "owner": "GoogleChrome",
+        "repo": "modern-web-guidance",
+        "rev": "56c61c9ee79a8df1a98822309c04847a57f56000",
+        "type": "github"
+      },
+      "original": {
+        "owner": "GoogleChrome",
+        "repo": "modern-web-guidance",
+        "type": "github"
+      }
+    },
     "niri": {
       "inputs": {
         "niri-stable": "niri-stable",
@@ -530,11 +546,11 @@
         "xwayland-satellite-unstable": "xwayland-satellite-unstable"
       },
       "locked": {
-        "lastModified": 1788119116,
-        "narHash": "sha256-LvuLRFljwbOpaQ+X6sWAD/penYTCqHEVf6AxQcBHDlo=",
+        "lastModified": 1788213334,
+        "narHash": "sha256-6PRmrhsaXmlvTZwmDWCYhY9imieGmXV+5nV+J/fIsP0=",
         "owner": "epireyn",
         "repo": "niri-flake",
-        "rev": "8c4cf2a8d3e42ca2db41b884eef333e674ecc09f",
+        "rev": "ba85e0972a0917588cfd0322827433d4a449f4ef",
         "type": "github"
       },
       "original": {
@@ -705,12 +721,12 @@
     },
     "nixpkgs_5": {
       "locked": {
-        "lastModified": 1788039129,
-        "narHash": "sha256-pa4Q0qErvCvzCaaUph7Sm37RhR4xvPrYI8Lgz6k85+A=",
-        "rev": "d2f67949798825fe853f7c5d0492b8bf016d3f88",
-        "revCount": 1064150,
+        "lastModified": 1788179007,
+        "narHash": "sha256-hn1oU2rue2SYK8dAr8+WNZWtbsz1S2W5mnHlSEuh3bo=",
+        "rev": "34ab99075ac4f7e40cf037eef32cb1c360bb85e9",
+        "revCount": 1064949,
         "type": "tarball",
-        "url": "https://api.flakehub.com/f/pinned/NixOS/nixpkgs/0.1.1064150%2Brev-d2f67949798825fe853f7c5d0492b8bf016d3f88/01a053f3-33e5-7d60-88c4-9a0cf7a7004d/source.tar.gz"
+        "url": "https://api.flakehub.com/f/pinned/NixOS/nixpkgs/0.1.1064949%2Brev-34ab99075ac4f7e40cf037eef32cb1c360bb85e9/01a0594a-21df-7981-874a-3f732b4d5b60/source.tar.gz"
       },
       "original": {
         "type": "tarball",
@@ -751,11 +767,11 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1788115290,
-        "narHash": "sha256-tqDxgo5pHcc6e2BVUkuO9jyLospiJ7lcCgiEJX7K4mw=",
+        "lastModified": 1788210390,
+        "narHash": "sha256-5M/5G9LuA1S2TXTL0JzTCc1aCxQbWma3wIUYtu00x/Y=",
         "owner": "noctalia-dev",
         "repo": "noctalia",
-        "rev": "d52b98e2b57ee493ca8dae7a6511aa6a536c351e",
+        "rev": "15151333352501ee6483fce94520e6ae1875f48a",
         "type": "github"
       },
       "original": {
@@ -772,11 +788,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1788111006,
-        "narHash": "sha256-dCJZwWfwMtV0JhpyyhZDB66tgjK6EmrARUTmOj+7aH0=",
+        "lastModified": 1788180806,
+        "narHash": "sha256-veowX6t9Vo6nV6BzJ3YKSUDXgfgX8k8yHccd+6fYlBo=",
         "owner": "noctalia-dev",
         "repo": "noctalia-greeter",
-        "rev": "6839b96827fc93f8bbef6af9261bfd0903940230",
+        "rev": "b4e668d4f8aada549d5c990c3a18458fae8be6b9",
         "type": "github"
       },
       "original": {
@@ -808,37 +824,17 @@
         "nu-batteries-src": "nu-batteries-src"
       },
       "locked": {
-        "lastModified": 1788150772,
-        "narHash": "sha256-TTSFyBfLMPSxHJb4Npx616kzUo+z24/BQLvONGZtiGk=",
+        "lastModified": 1788236112,
+        "narHash": "sha256-P2qBfWBiPssFkVlRCnrDwxFTLKWjoNSSoZH1W30/oG8=",
         "owner": "YPares",
         "repo": "nushellWith",
-        "rev": "a8bb354bb22da95b9b17b37d0af1384ed2ae86b1",
+        "rev": "0041edc225c8821ff3e37ba18774b827a165a1bc",
         "type": "github"
       },
       "original": {
         "owner": "YPares",
         "ref": "master",
         "repo": "nushellWith",
-        "type": "github"
-      }
-    },
-    "paseo": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1788106792,
-        "narHash": "sha256-GG2FKwcehTFNp5f6ao/BQL5M8bXPTN1n32qXblwFd0A=",
-        "owner": "getpaseo",
-        "repo": "paseo",
-        "rev": "8533c5c06f01e8b4f333acd9ec777ca2dbf406e1",
-        "type": "github"
-      },
-      "original": {
-        "owner": "getpaseo",
-        "repo": "paseo",
         "type": "github"
       }
     },
@@ -881,12 +877,12 @@
         "marimo-skills": "marimo-skills",
         "mattpocock-skills": "mattpocock-skills",
         "meta-quest-agentic-tools": "meta-quest-agentic-tools",
+        "modern-web-guidance": "modern-web-guidance",
         "niri": "niri",
         "nixpkgs": "nixpkgs_5",
         "noctalia": "noctalia",
         "noctalia-greeter": "noctalia-greeter",
         "nushellWith": "nushellWith",
-        "paseo": "paseo",
         "ragenix": "ragenix"
       }
     },

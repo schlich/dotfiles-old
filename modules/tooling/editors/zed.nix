@@ -38,6 +38,13 @@ in
 
       lsp.nil.settings.nil.nix.flake.autoArchive = true;
 
+      # Ty supplies Python type-checking diagnostics; Ruff supplies
+      # formatting and linting. This also excludes Zed's default BasedPyright.
+      languages.Python.language_servers = [
+        "ruff"
+        "!basedpyright"
+      ];
+
       agent_servers.codex-acp = {
         type = "registry";
         favorite_config_option_values.collaboration_mode = [ "default" ];

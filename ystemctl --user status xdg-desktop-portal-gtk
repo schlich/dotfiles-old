@@ -1,0 +1,16 @@
+[0;1;32m●[0m xdg-desktop-portal.service - Portal service
+     Loaded: loaded (]8;;file://asus/etc/systemd/user/xdg-desktop-portal.service\/etc/systemd/user/xdg-desktop-portal.service]8;;\; linked-runtime; preset: ignored)
+     Active: [0;1;32mactive (running)[0m since Mon 2026-08-31 20:04:58 CDT; 7h ago
+ Invocation: 096489abc36b43f59e8fe5c8096316e9
+   Main PID: 2434 (.xdg-desktop-po)
+      Tasks: 5[0;38:5:245m (limit: 18275)[0m
+     Memory: 7.1M (peak: 8M)
+        CPU: 279ms
+     CGroup: /user.slice/user-1001.slice/user@1001.service/session.slice/xdg-desktop-portal.service
+             └─[0;38:5:245m2434 /nix/store/hwfl4n2p049q0pa2gzsrjfiqlgf6cbny-xdg-desktop-portal-1.22.1/libexec/xdg-desktop-portal[0m
+
+Aug 31 20:04:57 asus systemd[2300]: Starting Portal service...
+Aug 31 20:04:57 asus /nix/store/hwfl4n2p049q0pa2gzsrjfiqlgf6cbny-xdg-desktop-portal-1.22.1/libexec/xdg-desktop-portal[2434]: [0;1;38:5:185m[0;1;39m[0;1;38:5:185mFailed to load RealtimeKit property: GDBus.Error:org.freedesktop.DBus.Error.ServiceUnknown: The name is not activatable[0m
+Aug 31 20:04:57 asus /nix/store/hwfl4n2p049q0pa2gzsrjfiqlgf6cbny-xdg-desktop-portal-1.22.1/libexec/xdg-desktop-portal[2434]: [0;1;38:5:185m[0;1;39m[0;1;38:5:185mFailed to load RealtimeKit property: GDBus.Error:org.freedesktop.DBus.Error.ServiceUnknown: The name is not activatable[0m
+Aug 31 20:04:57 asus /nix/store/hwfl4n2p049q0pa2gzsrjfiqlgf6cbny-xdg-desktop-portal-1.22.1/libexec/xdg-desktop-portal[2434]: [0;1;38:5:185m[0;1;39m[0;1;38:5:185mFailed to load RealtimeKit property: GDBus.Error:org.freedesktop.DBus.Error.ServiceUnknown: The name is not activatable[0m
+Aug 31 20:04:58 asus systemd[2300]: Started Portal service.

@@ -8,7 +8,7 @@ def main [event: string] {
         return
     }
 
-    let hook = ($in | from json)
+    let hook = (open --raw /dev/stdin | from json)
     let cwd = $hook.cwd? | default ""
     let session_id = $hook.session_id? | default ""
 

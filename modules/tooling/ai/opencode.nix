@@ -26,14 +26,14 @@ in
     enable = true;
     package = pkgs.writeNuScriptBin "opencode" ''
       def --wrapped main [...args] {
-        let github_token = (do -i { ^${pkgs.gh}/bin/gh auth token | str trim } | default "")
-
-        if ($github_token | is-empty) {
-          ^${pkgs.opencode}/bin/opencode ...$args
+        let github_token = if (($env.GITHUB_TOKEN? | default "") | is-empty) {
+          (do -i { ^${pkgs.gh}/bin/gh auth token | str trim } | default "")
         } else {
-          with-env { GITHUB_TOKEN: $github_token } {
-            ^${pkgs.opencode}/bin/opencode ...$args
-          }
+          $env.GITHUB_TOKEN
+        }
+
+        with-env { GITHUB_TOKEN: $github_token } {
+          ^secretspec run --file ${../../secretspec.toml} --provider env -- ${pkgs.opencode}/bin/opencode ...$args
         }
       }
     '';
