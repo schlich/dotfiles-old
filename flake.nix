@@ -94,45 +94,69 @@
         config.allowUnfree = true;
       };
       lib = nixpkgs.lib;
-      mkNixos =
-        modules:
-        lib.nixosSystem {
-          inherit system modules;
-          specialArgs = { inherit inputs; };
-        };
-      mkAsus =
-        storageModule:
-        mkNixos [
-          determinate.nixosModules.default
-          home-manager.nixosModules.home-manager
-          inputs.noctalia-greeter.nixosModules.default
-          inputs.niri.nixosModules.niri
-          # inputs.ragenix.nixosModules.default
-          ./configuration.nix
-          storageModule
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              extraSpecialArgs = {
-                inherit inputs;
-                username = "schlich";
-                homeDirectory = "/home/schlich";
-                stateVersion = "26.05";
-              };
-              users.schlich = import ./home.nix;
-            };
-            nixpkgs.overlays = overlays;
-            environment.systemPackages = [
-              fh.packages.x86_64-linux.default
-              pkgs.jj-starship
-            ];
-          }
-        ];
-
       nixosConfigurations = {
-        asus = mkAsus ./hosts/asus/storage-internal.nix;
-        asus-usb = mkAsus ./hosts/asus/hardware-configuration.nix;
+        asus = lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit inputs; };
+          modules = [
+            determinate.nixosModules.default
+            home-manager.nixosModules.home-manager
+            inputs.noctalia-greeter.nixosModules.default
+            inputs.niri.nixosModules.niri
+            # inputs.ragenix.nixosModules.default
+            ./configuration.nix
+            ./hosts/asus/storage-internal.nix
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                extraSpecialArgs = {
+                  inherit inputs;
+                  username = "schlich";
+                  homeDirectory = "/home/schlich";
+                  stateVersion = "26.05";
+                };
+                users.schlich = import ./home.nix;
+              };
+              nixpkgs.overlays = overlays;
+              environment.systemPackages = [
+                fh.packages.x86_64-linux.default
+                pkgs.jj-starship
+              ];
+            }
+          ];
+        };
+        asus-usb = lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit inputs; };
+          modules = [
+            determinate.nixosModules.default
+            home-manager.nixosModules.home-manager
+            inputs.noctalia-greeter.nixosModules.default
+            inputs.niri.nixosModules.niri
+            # inputs.ragenix.nixosModules.default
+            ./configuration.nix
+            ./hosts/asus/hardware-configuration.nix
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                extraSpecialArgs = {
+                  inherit inputs;
+                  username = "schlich";
+                  homeDirectory = "/home/schlich";
+                  stateVersion = "26.05";
+                };
+                users.schlich = import ./home.nix;
+              };
+              nixpkgs.overlays = overlays;
+              environment.systemPackages = [
+                fh.packages.x86_64-linux.default
+                pkgs.jj-starship
+              ];
+            }
+          ];
+        };
       };
 
       homeCheck = pkgs.linkFarm "home-manager-check" (
