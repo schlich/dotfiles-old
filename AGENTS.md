@@ -1,5 +1,15 @@
 # Repository workflows
 
+## Shell conventions
+
+- The user's interactive and configured shell is Nushell. When producing
+  user-facing shell commands, scripts, aliases, or templates, use valid
+  Nushell syntax.
+- Prefer Nushell operations and pipelines for text processing and structured
+  data transformations instead of `sed`, `awk`, or similar stream-editing
+  commands. Use `nu -c` to validate multi-command Nushell snippets when
+  practical.
+
 ## Configuration
 
 - This repository is a Nix flake. Keep tooling, shell wrappers, agent assets,
