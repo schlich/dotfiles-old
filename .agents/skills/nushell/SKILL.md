@@ -136,6 +136,17 @@ let result = match $value {
 }
 ```
 
+### Multi-line External Commands
+
+Nushell does not use POSIX backslash (`\`) line continuations. Put an external
+command and each argument on separate lines without trailing backslashes:
+
+```nu
+^my-command
+  --option value
+  argument
+```
+
 ### Null Safety
 
 ```nu
