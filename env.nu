@@ -1,4 +1,4 @@
-let github_token_path = ($env.XDG_RUNTIME_DIR | path join "agenix" "github-token")
+let github_token_path = "/run/agenix/github-token"
 
 if ($github_token_path | path exists) {
   let github_token = (open --raw $github_token_path | str trim)
