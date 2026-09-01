@@ -4,15 +4,7 @@ let
   skills = import ./shared-skills.nix { inherit inputs; };
   codex = pkgs.writeNuScriptBin "codex" ''
     def --wrapped main [...args] {
-      let github_token = if (($env.GITHUB_TOKEN? | default "") | is-empty) {
-        (do -i { ^${pkgs.gh}/bin/gh auth token | str trim } | default "")
-      } else {
-        $env.GITHUB_TOKEN
-      }
-
-      with-env { GITHUB_TOKEN: $github_token } {
-        ^secretspec run --file ${../../secretspec.toml} --provider env -- ${pkgs.codex}/bin/codex ...$args
-      }
+      ^secretspec run --file ${../../secretspec.toml} --provider keyring -- ${pkgs.codex}/bin/codex ...$args
     }
   '';
 in

@@ -39,7 +39,6 @@ in
     environmentVariables = {
       COLORTERM = "truecolor";
     };
-    envFile.source = ../../env.nu;
     configFile.source = ../../config.nu;
     extraConfig = ''
       source ${atuinNushellConfig}

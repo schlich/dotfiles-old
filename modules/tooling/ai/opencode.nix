@@ -26,15 +26,7 @@ in
     enable = true;
     package = pkgs.writeNuScriptBin "opencode" ''
       def --wrapped main [...args] {
-        let github_token = if (($env.GITHUB_TOKEN? | default "") | is-empty) {
-          (do -i { ^${pkgs.gh}/bin/gh auth token | str trim } | default "")
-        } else {
-          $env.GITHUB_TOKEN
-        }
-
-        with-env { GITHUB_TOKEN: $github_token } {
-          ^secretspec run --file ${../../secretspec.toml} --provider env -- ${pkgs.opencode}/bin/opencode ...$args
-        }
+        ^secretspec run --file ${../../secretspec.toml} --provider keyring -- ${pkgs.opencode}/bin/opencode ...$args
       }
     '';
     enableMcpIntegration = true;
