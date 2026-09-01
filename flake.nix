@@ -9,10 +9,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nushellWith.url = "github:YPares/nushellWith/master";
-    ragenix = {
-      url = "github:yaxitech/ragenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     marimo-pair = {
       url = "github:marimo-team/marimo-pair";
       flake = false;
@@ -106,7 +102,6 @@
             home-manager.nixosModules.home-manager
             inputs.noctalia-greeter.nixosModules.default
             inputs.niri.nixosModules.niri
-            inputs.ragenix.nixosModules.default
             ./configuration.nix
             ./hosts/asus/storage-internal.nix
             {
@@ -137,7 +132,6 @@
             home-manager.nixosModules.home-manager
             inputs.noctalia-greeter.nixosModules.default
             inputs.niri.nixosModules.niri
-            inputs.ragenix.nixosModules.default
             ./configuration.nix
             ./hosts/asus/hardware-configuration.nix
             {

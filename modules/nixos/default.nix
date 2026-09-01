@@ -8,6 +8,5 @@
     ./user.nix
     ./docker.nix
     ./files.nix
-    ./secrets.nix
   ];
 }
