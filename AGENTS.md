@@ -9,6 +9,9 @@
   data transformations instead of `sed`, `awk`, or similar stream-editing
   commands. Use `nu -c` to validate multi-command Nushell snippets when
   practical.
+- Nushell does not use POSIX backslash (`\`) line continuations. For
+  multi-line external commands, put the command and each argument on its own
+  line without trailing backslashes.
 
 ## Configuration
 
