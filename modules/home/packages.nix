@@ -49,5 +49,6 @@
     ripgrep
     wl-clipboard-rs
     gh-stack
+    inputs.ragenix.packages.x86_64-linux.default
   ];
 }

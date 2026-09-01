@@ -106,7 +106,7 @@
             home-manager.nixosModules.home-manager
             inputs.noctalia-greeter.nixosModules.default
             inputs.niri.nixosModules.niri
-            # inputs.ragenix.nixosModules.default
+            inputs.ragenix.nixosModules.default
             ./configuration.nix
             ./hosts/asus/storage-internal.nix
             {
@@ -137,7 +137,7 @@
             home-manager.nixosModules.home-manager
             inputs.noctalia-greeter.nixosModules.default
             inputs.niri.nixosModules.niri
-            # inputs.ragenix.nixosModules.default
+            inputs.ragenix.nixosModules.default
             ./configuration.nix
             ./hosts/asus/hardware-configuration.nix
             {
