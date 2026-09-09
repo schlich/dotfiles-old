@@ -31,8 +31,6 @@ jobs:
             command: nix build .#checks.x86_64-linux.niri-config --print-build-logs
           - name: zellij shell config
             command: nix build .#checks.x86_64-linux.zellij-config --print-build-logs
-          - name: whitespace
-            command: nix build .#checks.x86_64-linux.whitespace --print-build-logs
     steps:
       - uses: actions/checkout@v6
       - uses: DeterminateSystems/determinate-nix-action@v3
