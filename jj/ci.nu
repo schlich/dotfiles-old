@@ -78,7 +78,6 @@ def github-reconcile [apply: bool] {
         "build NixOS (shell and compositor)"
         "build niri compositor config"
         "build zellij shell config"
-        "build whitespace"
     ]
     let repository = (run-command "reading repository metadata" {
         ^gh repo view --json nameWithOwner --jq .nameWithOwner
