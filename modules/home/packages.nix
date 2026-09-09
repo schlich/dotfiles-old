@@ -33,7 +33,7 @@
     xwayland-satellite
     dhall
     skills
-    gcr
+    gcr_4
     clipboard-jh
     diffedit3
     dust
