@@ -1,6 +1,6 @@
 def state-path [session_id: string] {
-    let runtime_dir = ($env.XDG_RUNTIME_DIR? | default "/tmp")
-    $runtime_dir | path join "codex-jj-sessions" $"($session_id).json"
+    let state_dir = ($env.XDG_STATE_HOME? | default ($env.HOME | path join ".local" "state"))
+    $state_dir | path join "codex-jj-sessions" $"($session_id).json"
 }
 
 def main [event: string] {
@@ -22,6 +22,13 @@ def main [event: string] {
                 return
             }
 
+            # Startup can be emitted again for an existing session. Keep its marker
+            # after naming so subsequent starts and prompts remain no-ops.
+            let path = (state-path $session_id)
+            if ($path | path exists) {
+                return
+            }
+
             let root = (^jj --repository $cwd root | complete)
             if $root.exit_code != 0 {
                 return
@@ -33,11 +40,11 @@ def main [event: string] {
             }
 
             let change_id = (^jj --repository $cwd log -r @ --no-graph -T "change_id" | str trim)
-            let path = (state-path $session_id)
             mkdir ($path | path dirname)
             {
                 cwd: $cwd
                 change_id: $change_id
+                described: false
             } | to json | save --force $path
         }
         "first-prompt" => {
@@ -47,6 +54,10 @@ def main [event: string] {
             }
 
             let state = (open $path)
+            if ($state.described? | default false) {
+                return
+            }
+
             let described = (
                 with-env { CODEX_JJ_SESSION_HOOK: "1" } {
                     ^jj-describe $state.change_id --prompt ($hook.prompt? | default "") | complete
@@ -65,7 +76,7 @@ def main [event: string] {
                 return
             }
 
-            rm $path
+            $state | upsert described true | to json | save --force $path
         }
         _ => {
             error make { msg: $"Unknown Codex JJ hook event: ($event)" }
