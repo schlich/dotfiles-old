@@ -49,6 +49,7 @@
       inputs.home-manager.follows = "home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    codex-desktop-linux.url = "github:ilysenko/codex-desktop-linux";
     anthropic-skills = {
       url = "github:anthropics/skills";
       flake = false;
@@ -82,9 +83,6 @@
     let
       system = "x86_64-linux";
       overlays = [
-        (final: _prev: {
-          chatgpt = final.callPackage ./packages/chatgpt.nix { };
-        })
         jj-starship.overlays.default
         nushellWith.overlays.default
       ];
@@ -185,7 +183,6 @@
 
       packages.${system} = {
         default = nixosConfigurations.asus.config.system.build.toplevel;
-        chatgpt = pkgs.chatgpt;
       };
 
       formatter.${system} = pkgs.nixfmt-tree;

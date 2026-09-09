@@ -4,7 +4,6 @@
   home.packages = with pkgs; [
     xdg-user-dirs
     bubblewrap
-    chatgpt
     super-productivity
     zotero
     marimo

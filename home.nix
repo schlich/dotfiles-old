@@ -8,6 +8,7 @@
 {
   imports = [
     inputs.noctalia.homeModules.default
+    inputs.codex-desktop-linux.homeManagerModules.default
     ./modules/tooling/interface.nix
     ./modules/tooling/terminals/kitty.nix
     ./modules/tooling/terminals/ghostty.nix
@@ -29,6 +30,8 @@
   home = {
     inherit username homeDirectory stateVersion;
   };
+
+  programs.codexDesktopLinux.enable = true;
 
   dotfiles.primary = {
     terminal = "ghostty";
