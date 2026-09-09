@@ -96,5 +96,11 @@ in
     enableNushellIntegration = true;
   };
 
-  programs.intelli-shell.settings.ai.enabled = true;
+  programs.intelli-shell.settings.ai = {
+    enabled = true;
+    catalog.main = {
+      provider = "openai";
+      model = "gpt-5.6-luna";
+    };
+  };
 }
